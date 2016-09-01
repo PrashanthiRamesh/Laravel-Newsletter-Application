@@ -12,13 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('subscribers', 'SubscribersController@index');
-Route::post('/subscribers/submit', 'SubscribersController@submit');
+Route::get('subscribe', 'SubscribersController@index');
+Route::post('/subscribe/submit', 'SubscribersController@submit');
 
 
 //test
 
-
+Route::get('test','TestController@index');
