@@ -11,13 +11,37 @@
 |
 */
 
-Route::get('/', function () {
+/*
+ * Authentication
+ */
+
+
+Route::get('login', array('uses' => 'HomeController@showLogin'));
+
+Route::post('login', array('uses' => 'HomeController@doLogin'));
+
+Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
+/*
+ * Home Page
+ */
+
+Route::get('home', function () {
     return view('index');
 });
 
-Route::get('subscribe', 'SubscribersController@index');
-Route::post('/subscribe/submit', 'SubscribersController@submit');
+/*
+ * Subscribers
+ */
 
+Route::get('subscribe', 'SubscribersController@index');
+Route::post('subscribe/submit', 'SubscribersController@submit');
+
+/*
+ * Newsletters
+ */
+
+Route::get('newsletters', 'NewslettersController@index');
 
 //test
 

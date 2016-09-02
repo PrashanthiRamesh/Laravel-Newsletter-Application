@@ -17,7 +17,7 @@
 <body>
 
 {{-- Form Starts Here --}}
-{{Form::open(array('url'=> URL::to('subscribers/submit'),'method' => 'post'))}}<p>Newsletter Subscription</p>
+{{Form::open(array('url'=> URL::to('subscribe/submit'),'method' => 'post'))}}<p>Newsletter Subscription</p>
 {{Form::text('email',null,array('placeholder'=>'Type your E-mail address here'))}}
 {{Form::submit('Submit!')}}
 

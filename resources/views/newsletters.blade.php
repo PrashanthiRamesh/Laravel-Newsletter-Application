@@ -51,14 +51,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-                {{--<a class="navbar-brand" href="#">Logo</a>--}}
+            {{--<a class="navbar-brand" href="#">Logo</a>--}}
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="home">Home</a></li>
+                <li ><a href="home">Home</a></li>
                 <li><a href="messages">Messages</a></li>
                 <li><a href="subscribers">Subscribers</a></li>
-                <li><a href="newsletters">Newsletters</a></li>
+                <li class="active" ><a href="newsletters">Newsletters</a></li>
                 <li><a href="templates">Templates</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -74,9 +74,12 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h1>Newsletter App</h1>
-             <hr>
-            <h3></h3>
+            <h1>Newsletters</h1>
+            <hr>
+            @foreach ($newsletters as $newsletter)
+                {{$newsletter->username}}
+
+            @endforeach
             <p></p>
         </div>
         <div class="col-sm-2 sidenav">
