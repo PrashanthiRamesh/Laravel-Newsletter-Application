@@ -11,6 +11,6 @@ class ListsController extends Controller
 {
    public function index(){
        $lists=DB::table('lists')->orderBy('id')->get();
-       return View::make('lists')->with('lists',$lists);;
+       return View::make('lists')->with('lists',$lists);
    }
 }

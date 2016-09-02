@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Subscribers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +18,9 @@ class SubscribersController extends Controller
         return View::make('subscribe_form');
     }
 
-    public function test(){
-
+    public function get(){
+        $subscribers=DB::table('subscribers')->orderBy('id')->get();
+        return View::make('subscribers')->with('subscribers',$subscribers);
     }
 
     public function submit(Request $request) {

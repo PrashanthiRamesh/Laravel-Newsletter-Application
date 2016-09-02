@@ -34,6 +34,7 @@ Route::get('home', function () {
  * Subscribers
  */
 
+Route::get('subscribers', 'SubscribersController@get');
 Route::get('subscribe', 'SubscribersController@index');
 Route::post('subscribe/submit', 'SubscribersController@submit');
 
