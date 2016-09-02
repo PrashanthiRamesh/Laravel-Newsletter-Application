@@ -59,6 +59,7 @@
                 <li><a href="messages">Messages</a></li>
                 <li><a href="subscribers">Subscribers</a></li>
                 <li><a href="newsletters">Newsletters</a></li>
+                <li><a href="lists">Lists</a></li>
                 <li><a href="templates">Templates</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

@@ -43,6 +43,12 @@ Route::post('subscribe/submit', 'SubscribersController@submit');
 
 Route::get('newsletters', 'NewslettersController@index');
 
+/*
+ * Lists
+ */
+
+Route::get('lists', 'ListsController@index');
+
 //test
 
 Route::get('test','TestController@index');

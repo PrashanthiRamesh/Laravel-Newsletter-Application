@@ -39,6 +39,76 @@
             }
             .row.content {height:auto;}
         }
+
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            color: #4a4a4d;
+            font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        th,
+        td {
+            padding: 10px 15px;
+            vertical-align: middle;
+        }
+        thead {
+            background: #395870;
+            background: linear-gradient(#ce8483, #ff6666);
+            color: #fff;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        th:first-child {
+            border-top-left-radius: 5px;
+            text-align: left;
+        }
+        th:last-child {
+            border-top-right-radius: 5px;
+        }
+        tbody tr:nth-child(even) {
+            background: #f0f0f2;
+        }
+        td {
+            border-bottom: 1px solid #cecfd5;
+            border-right: 1px solid #cecfd5;
+        }
+        td:first-child {
+            border-left: 1px solid #cecfd5;
+        }
+        .book-title {
+            color: #395870;
+            display: block;
+        }
+        .text-offset {
+            color: #7c7c80;
+            font-size: 12px;
+        }
+        .item-stock,
+        .item-qty {
+            text-align: center;
+        }
+        .item-price {
+            text-align: right;
+        }
+        .item-multiple {
+            display: block;
+        }
+        tfoot {
+            text-align: right;
+        }
+        tfoot tr:last-child {
+            background: #f0f0f2;
+            color: #395870;
+            font-weight: bold;
+        }
+        tfoot tr:last-child td:first-child {
+            border-bottom-left-radius: 5px;
+        }
+        tfoot tr:last-child td:last-child {
+            border-bottom-right-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -58,8 +128,8 @@
                 <li ><a href="home">Home</a></li>
                 <li><a href="messages">Messages</a></li>
                 <li><a href="subscribers">Subscribers</a></li>
-                <li class="active" ><a href="newsletters">Newsletters</a></li>
-                <li><a href="lists">Lists</a></li>
+                <li ><a href="newsletters">Newsletters</a></li>
+                <li class="active" ><a href="lists">Lists</a></li>
                 <li><a href="templates">Templates</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -75,23 +145,32 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h1>Newsletters</h1>
+            <h1>Lists</h1>
             <hr>
-            @foreach ($newsletters as $newsletter)
-
-
-            @endforeach
-            <a href="newsletters/new" class="large">new newsletter »</a>
             <table>
+                <thead>
                 <tr>
-                    <th></th>
-                    <th>name</th>
-                    <th>description</th>
-                    <th>visible</th>
-                    <th></th>
+                    <th scope="col" >ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" colspan="2" >Description</th>
                 </tr>
+                </thead>
+                <tbody>
+
+                @foreach ($lists as $list)
+
+                    <tr>
+
+                        <td> {{ $list->id }}</td>
+                        <td > {{ $list->name }}</td>
+                        <td > {{ $list->description }} </td>
+                    </tr>
+                @endforeach
+
+                </tbody>
+
             </table>
-            <p></p>
+
         </div>
         <div class="col-sm-2 sidenav">
 

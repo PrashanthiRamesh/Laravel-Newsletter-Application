@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         Illuminate\Database\Eloquent\Model::unguard();
 
-        $this->call('UserTableSeeder');
-
+    //    $this->call('UserTableSeeder');
+     //     $this->call('ListsTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -28,6 +28,19 @@ class UserTableSeeder extends Seeder
             'username' => 'sansa',
             'email'    => 'sansa@gmail.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
+        ));
+    }
+
+}
+class ListsTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        \Illuminate\Support\Facades\DB::table('lists')->delete();
+        \App\Lists::create(array(
+            'name'     => 'Free Users',
+            'description' =>'Customers using only the free version'
         ));
     }
 
