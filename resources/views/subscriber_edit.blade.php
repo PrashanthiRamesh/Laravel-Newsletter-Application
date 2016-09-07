@@ -163,7 +163,9 @@
            but to be sure you could use an id or class for that button */
         input + input {
             float: right;
-        }  ​
+        }
+
+        ​
 
     </style>
 </head>
@@ -215,15 +217,15 @@
             {{ Form::label('lists', 'Lists:')}}<br>
 
             @foreach ($lists as $list)
-                <?php $flag = true ; ?>
-                @foreach($subscribtions as $subscribtion)
-                    @if ($subscribtion->list_id == $list->id)
-                        <?php $flag = true ; ?>
-                        @break
-                    @endif
-                @endforeach
-                {{ Form::checkbox('name', 1, $flag) }} &nbsp {{$list->name}}
 
+                @if($subscribtions->where('list_id',$list->id)->all())
+
+                    {{ Form::checkbox('list[]',$list->id, true) }} &nbsp {{$list->name}}
+                @else
+                    {{ Form::checkbox('list[]',$list->id, false) }} &nbsp {{$list->name}}
+
+                @endif
+               <br>
             @endforeach
 
 

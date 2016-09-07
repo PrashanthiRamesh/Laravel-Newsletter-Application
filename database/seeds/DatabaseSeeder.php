@@ -39,9 +39,14 @@ class ListsTableSeeder extends Seeder
     public function run()
     {
         \Illuminate\Support\Facades\DB::table('lists')->delete();
+
         \App\Lists::create(array(
             'name'     => 'Free Users',
             'description' =>'Customers using only the free version'
+        ));
+        \App\Lists::create(array(
+            'name'     => 'Full Version Users',
+            'description' =>'Customers using the full version'
         ));
     }
 
@@ -55,7 +60,7 @@ class SubscribtionsTableSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('subscribtions')->delete();
         \App\Subscribtions::create(array(
             'subscribers_id'=>'1',
-            'list_id'=>'1'
+            'list_id'=>'4'
         ));
     }
 

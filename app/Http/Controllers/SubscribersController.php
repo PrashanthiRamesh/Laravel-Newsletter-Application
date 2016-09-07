@@ -15,62 +15,76 @@ use Illuminate\Support\Facades\View;
 
 class SubscribersController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 
         return View::make('subscribe_form');
     }
 
-    public function get(){
-        $subscribers=DB::table('subscribers')->orderBy('id')->get();
-        return View::make('subscribers')->with('subscribers',$subscribers);
+    public function get()
+    {
+        $subscribers = DB::table('subscribers')->orderBy('id')->get();
+        return View::make('subscribers')->with('subscribers', $subscribers);
     }
 
-    public function edit_show($id){
+    public function edit_show($id)
+    {
         $subscriber = Subscribers::find($id);
-        $subscribtions=Subscribtions::where('subscribers_id',$id)->get();
-        $lists=Lists::all();
-        return View::make('subscriber_edit')->with('subscriber',$subscriber)
-            ->with('subscribtions',$subscribtions)
-            ->with('lists',$lists);
+        $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
+        $lists = Lists::all();
+        return View::make('subscriber_edit')->with('subscriber', $subscriber)
+            ->with('subscribtions', $subscribtions)
+            ->with('lists', $lists);
     }
 
-    public function delete_show(){
+    public function delete_show()
+    {
         return View::make('subscriber_delete');
     }
 
-    public function edit(){
-
-        $subscriber= Subscribers::find(Input::get('id'))->first();
-        $subscriber->name=Input::get('name');
-        $subscriber->email=Input::get('email');
+    public function edit()
+    {
+        $id = Input::get('id');
+        $subscriber = Subscribers::find($id)->first();
+        $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
+        $subscriber->name = Input::get('name');
+        $subscriber->email = Input::get('email');
         $subscriber->save();
+        $lists = Input::get('list');
+        foreach ($lists as $list) {
+            //TODO if not $list exists in subscribtions create  a subscribtion
+            if(!$subscribtions->where('list_id',$list)){
+                $subscribtions->subscribers_id=$id;
+                $subscribtions->list_id=$list;
+                $subscribtions->save();
+            }
+        }
         return Redirect::to('subscribers');
     }
 
 
-    public function submit(Request $request) {
+    public function submit(Request $request)
+    {
 
-       //TODO: check ajax requests
-            $validation = Validator::make(Input::all(), array(
-                    //email field should be required, should be in an email//format, and should be unique
-                    'email' => 'required|email|unique:subscribers,email'
-                )
-            );
+        //TODO: check ajax requests
+        $validation = Validator::make(Input::all(), array(
+                //email field should be required, should be in an email//format, and should be unique
+                'email' => 'required|email|unique:subscribers,email'
+            )
+        );
 
-            if($validation->fails()) {
-                return $validation->errors()->first();
-            } else {
+        if ($validation->fails()) {
+            return $validation->errors()->first();
+        } else {
 
-                $create = Subscribers::create(array(
-                    'email' => Input::get('email')
-                ));
+            $create = Subscribers::create(array(
+                'email' => Input::get('email')
+            ));
 
-                //If successful, we will be returning the '1' so the form//understands it's successful
-                //or if we encountered an unsuccessful creation attempt,return its info
-                return Redirect::to('subscribers');
-            }
-
-
+            //If successful, we will be returning the '1' so the form//understands it's successful
+            //or if we encountered an unsuccessful creation attempt,return its info
+            return Redirect::to('subscribers');
+        }
 
 
     }
