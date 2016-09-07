@@ -159,14 +159,14 @@
 
                 @foreach ($subscribers as $subscriber)
 
-                    <tr>
+                <tr>
 
-                        <td> {{ $subscriber->id }}</td>
-                        <td > {{ $subscriber->name }}</td>
-                        <td > {{ $subscriber->email }} </td>
-                        <td>  <a href="{!! route('subscriber_edit', ['id'=>$subscriber->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
-                        <td>  <a href="subscriber/delete" onclick="return confirm('Are you sure you want to delete this subscriber ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
-                    </tr>
+                    <td> {{ $subscriber->id }}</td>
+                    <td > {{ $subscriber->name }}</td>
+                    <td > {{ $subscriber->email }} </td>
+                    <td>  <a href="subscriber/edit">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
+                    <td>  <a href="subscriber/delete" onclick="return confirm('Are you sure you want to delete this subscriber ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
+                </tr>
                 @endforeach
 
                 </tbody>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Lists;
+use App\Subscribtions;
 use Illuminate\Http\Request;
 
 use App\Subscribers;
@@ -22,6 +24,29 @@ class SubscribersController extends Controller
         $subscribers=DB::table('subscribers')->orderBy('id')->get();
         return View::make('subscribers')->with('subscribers',$subscribers);
     }
+
+    public function edit_show($id){
+        $subscriber = Subscribers::find($id);
+        $subscribtions=Subscribtions::where('subscribers_id',$id)->get();
+        $lists=Lists::all();
+        return View::make('subscriber_edit')->with('subscriber',$subscriber)
+            ->with('subscribtions',$subscribtions)
+            ->with('lists',$lists);
+    }
+
+    public function delete_show(){
+        return View::make('subscriber_delete');
+    }
+
+    public function edit(){
+
+        $subscriber= Subscribers::find(Input::get('id'))->first();
+        $subscriber->name=Input::get('name');
+        $subscriber->email=Input::get('email');
+        $subscriber->save();
+        return Redirect::to('subscribers');
+    }
+
 
     public function submit(Request $request) {
 

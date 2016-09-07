@@ -36,13 +36,23 @@ Route::get('home', function () {
 
 Route::get('subscribers', 'SubscribersController@get');
 Route::get('subscribe', 'SubscribersController@index');
+
+Route::get('subscriber/delete', 'SubscribersController@delete_show');
 Route::post('subscribe/submit', 'SubscribersController@submit');
 
+Route::get('/subscriber/edit/{id}',[
+    'uses' => 'SubscribersController@edit_show',
+    'as'   => 'subscriber_edit'
+]);
+Route::post('/subscriber/edit/{id}',[
+    'uses' => 'SubscribersController@edit',
+    'as'   => 'subscriber_edit'
+]);
 /*
  * Newsletters
  */
 
-Route::get('newsletters', 'NewslettersController@index');
+Route::get('/newsletters', 'NewslettersController@index');
 
 /*
  * Lists

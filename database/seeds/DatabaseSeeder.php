@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
 
     //    $this->call('UserTableSeeder');
      //     $this->call('ListsTableSeeder');
+        $this->call('SubscribtionsTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -41,6 +42,20 @@ class ListsTableSeeder extends Seeder
         \App\Lists::create(array(
             'name'     => 'Free Users',
             'description' =>'Customers using only the free version'
+        ));
+    }
+
+}
+
+class SubscribtionsTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        \Illuminate\Support\Facades\DB::table('subscribtions')->delete();
+        \App\Subscribtions::create(array(
+            'subscribers_id'=>'1',
+            'list_id'=>'1'
         ));
     }
 
