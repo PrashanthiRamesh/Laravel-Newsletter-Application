@@ -109,6 +109,65 @@
             border-bottom-right-radius: 5px;
         }
 
+        form {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        label, input {
+            /* in order to define widths */
+            display: inline-block;
+        }
+
+        label {
+            width: 30%;
+            /* positions the label text beside the input */
+            text-align: right;
+        }
+
+        label + input {
+            width: 60%;
+            /* large margin-right to force the next element to the new-line
+               and margin-left to create a gutter between the label and input */
+
+        }
+
+        form input[type="submit"] {
+            background-color: #ce8483;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+            top: 100px;
+            position: relative;
+
+            left: 200px;
+
+        }
+
+        form input[type="checkbox"] {
+
+            padding: 14px 20px;
+            margin: 8px 0;
+
+            cursor: pointer;
+            width: 200px;
+
+            position: relative;
+
+            left: 100px;
+
+        }
+
+        /* only the submit button is matched by this selector,
+           but to be sure you could use an id or class for that button */
+        input + input {
+            float: right;
+        }
+
+
     </style>
 </head>
 <body>
@@ -125,14 +184,14 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li ><a href="home">Home</a></li>
-                <li><a href="subscribers">Subscribers</a></li>
-                <li ><a href="newsletters">Newsletters</a></li>
-                <li class="active" ><a href="lists">Lists</a></li>
-                <li><a href="templates">Templates</a></li>
+                <li ><a href="/home">Home</a></li>
+                <li><a href="/subscribers">Subscribers</a></li>
+                <li ><a href="/newsletters">Newsletters</a></li>
+                <li class="active" ><a href="/lists">Lists</a></li>
+                <li><a href="/templates">Templates</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
@@ -144,36 +203,22 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h1>Lists</h1>
+            <h1>New List</h1>
             <hr>
-            <a href="list/new" class="large">new list »</a>
-            <hr>
-            <table>
-                <thead>
-                <tr>
-                    <th scope="col" >ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col" colspan="3" >Description</th>
-                </tr>
-                </thead>
-                <tbody>
 
-                @foreach ($lists as $list)
+            {{ Form::open(array('url' => '/list/new', 'method'=>'post')) }}
 
-                    <tr>
+            {{ Form::label('name', 'List Name:')}}
+            {{ Form::text('name', '')}}
+            <br><br>
+            {{ Form::label('desc', 'Description:')}}
+            {{ Form::text('desc', '')}}
+            <br>
 
-                        <td> {{ $list->id }}</td>
-                        <td > {{ $list->name }}</td>
-                        <td > {{ $list->description }} </td>
-                        <td>  <a href="{!! route('list_edit', ['id'=>$list->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
-                        <td>  <a href="{!! route('list_delete', ['id'=>$list->id]) !!} " onclick="return confirm('Are you sure you want to delete this list ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
+            {{Form::submit('Add List')}}
+            {{ Form::close() }}
 
-                    </tr>
-                @endforeach
 
-                </tbody>
-
-            </table>
 
         </div>
         <div class="col-sm-2 sidenav">

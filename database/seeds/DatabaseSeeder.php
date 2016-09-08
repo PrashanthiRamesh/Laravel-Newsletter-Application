@@ -13,9 +13,10 @@ class DatabaseSeeder extends Seeder
     {
         Illuminate\Database\Eloquent\Model::unguard();
 
-    //    $this->call('UserTableSeeder');
+     //   $this->call('UserTableSeeder');
      //     $this->call('ListsTableSeeder');
-        $this->call('SubscribtionsTableSeeder');
+       // $this->call('SubscribtionsTableSeeder');
+      //  $this->call('SubscribersTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -61,6 +62,20 @@ class SubscribtionsTableSeeder extends Seeder
         \App\Subscribtions::create(array(
             'subscribers_id'=>'1',
             'list_id'=>'4'
+        ));
+    }
+
+}
+
+class SubscribersTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+       // \Illuminate\Support\Facades\DB::table('subscribers')->delete();
+        \App\Subscribers::create(array(
+            'email'=>'rvprashanthi@gmail.com',
+            'name'=>'Prash'
         ));
     }
 

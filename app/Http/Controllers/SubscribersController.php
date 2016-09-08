@@ -41,6 +41,7 @@ class SubscribersController extends Controller
     {
         $subscriber = Subscribers::find($id);
         $subscriber->delete();
+        Subscribtions::where('subscribers_id', $id)->truncate();
         return Redirect::to('subscribers');
     }
 
@@ -48,7 +49,7 @@ class SubscribersController extends Controller
     {
 
         $id = Input::get('id');
-        $subscriber = Subscribers::find($id)->first();
+        $subscriber = Subscribers::find($id);
         $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
         $subscriber->name = Input::get('name');
         $subscriber->email = Input::get('email');

@@ -76,20 +76,7 @@
         <div class="col-sm-8 text-left">
             <h1>Newsletters</h1>
             <hr>
-            @foreach ($newsletters as $newsletter)
 
-
-            @endforeach
-            <a href="newsletters/new" class="large">new newsletter »</a>
-            <table>
-                <tr>
-                    <th></th>
-                    <th>name</th>
-                    <th>description</th>
-                    <th>visible</th>
-                    <th></th>
-                </tr>
-            </table>
             <p></p>
         </div>
         <div class="col-sm-2 sidenav">

@@ -68,6 +68,25 @@ Route::get('/newsletters', 'NewslettersController@index');
 
 Route::get('lists', 'ListsController@index');
 
+Route::get('list/new', 'ListsController@newlist');
+
+Route::post('list/new', 'ListsController@create');
+
+Route::get('/list/edit/{id}',[
+    'uses' => 'ListsController@edit_show',
+    'as'   => 'lists_edit'
+]);
+
+Route::post('/list/edit/{id}',[
+    'uses' => 'ListsController@edit',
+    'as'   => 'list_edit'
+]);
+
+Route::get('list/delete/{id}', [
+    'uses' => 'ListsController@delete_show',
+    'as' => 'list_delete'
+]);
+
 //test
 
 Route::get('test','TestController@index');
