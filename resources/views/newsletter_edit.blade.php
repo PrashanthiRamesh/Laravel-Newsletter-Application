@@ -15,7 +15,9 @@
         }
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
+        .row.content {
+            height: 450px
+        }
 
         /* Set gray background color and 100% height */
         .sidenav {
@@ -37,9 +39,12 @@
                 height: auto;
                 padding: 15px;
             }
-            .row.content {height:auto;}
-        }
 
+            .row.content {
+                height: auto;
+            }
+
+        }
 
         table {
             border-collapse: separate;
@@ -47,67 +52,61 @@
             color: #4a4a4d;
             font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
+
         th,
         td {
             padding: 10px 15px;
             vertical-align: middle;
         }
+
         thead {
             background: #395870;
-            background: linear-gradient(#ce8483, #ff6666);
+            background: linear-gradient(#337ab7, #1f648b);
             color: #fff;
             font-size: 11px;
             text-transform: uppercase;
         }
+
         th:first-child {
             border-top-left-radius: 5px;
             text-align: left;
         }
+
         th:last-child {
             border-top-right-radius: 5px;
         }
+
         tbody tr:nth-child(even) {
             background: #f0f0f2;
         }
+
         td {
             border-bottom: 1px solid #cecfd5;
             border-right: 1px solid #cecfd5;
         }
+
         td:first-child {
             border-left: 1px solid #cecfd5;
         }
-        .book-title {
-            color: #395870;
-            display: block;
-        }
-        .text-offset {
-            color: #7c7c80;
-            font-size: 12px;
-        }
-        .item-stock,
-        .item-qty {
-            text-align: center;
-        }
-        .item-price {
-            text-align: right;
-        }
-        .item-multiple {
-            display: block;
-        }
+
         tfoot {
             text-align: right;
         }
+
         tfoot tr:last-child {
             background: #f0f0f2;
             color: #395870;
             font-weight: bold;
         }
+
         tfoot tr:last-child td:first-child {
             border-bottom-left-radius: 5px;
         }
+
         tfoot tr:last-child td:last-child {
             border-bottom-right-radius: 5px;
         }
+
         form {
             width: 100%;
             margin: 0 auto;
@@ -166,6 +165,8 @@
             float: right;
         }
 
+        ​
+
     </style>
 </head>
 <body>
@@ -182,10 +183,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li ><a href="/home">Home</a></li>
-                <li><a href="/subscribers">Subscribers</a></li>
-                <li ><a href="/newsletters">Newsletters</a></li>
-                <li class="active" ><a href="/lists">Lists</a></li>
+                <li><a href="/home">Home</a></li>
+                <li ><a href="/subscribers">Subscribers</a></li>
+                <li class="active"><a href="/newsletters">Newsletters</a></li>
+                <li><a href="/lists">Lists</a></li>
                 <li><a href="/templates">Templates</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -201,21 +202,20 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h1>New List</h1>
+            <h1>Edit Newsletter</h1>
             <hr>
+            {{ Form::open(array('url' => '/newsletter/edit/{id}', 'method'=>'post')) }}
 
-            {{ Form::open(array('url' => '/list/new', 'method'=>'post')) }}
-
-            {{ Form::label('name', 'List Name:')}}
-            {{ Form::text('name', '')}}
+            {{ Form::hidden('id', $newsletter->id) }}
+            {{ Form::label('subject', 'Subject:')}}
+            {{ Form::text('subject', $newsletter->subject)}}
             <br><br>
-            {{ Form::label('desc', 'Description:')}}
-            {{ Form::text('desc', '')}}
+            {{ Form::label('body', 'body:')}}
+            {{ Form::textarea('body', $newsletter->body, ['size' => '70x10']) }}
             <br>
 
-            {{Form::submit('Add List')}}
+            {{Form::submit('Edit Newsletter')}}
             {{ Form::close() }}
-
 
 
         </div>

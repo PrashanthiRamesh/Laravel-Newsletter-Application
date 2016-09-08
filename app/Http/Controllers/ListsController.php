@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lists;
+use App\Subscribtions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -51,6 +52,7 @@ class ListsController extends Controller
    public function delete_show($id){
        $list = Lists::find($id);
        $list->delete();
+       Subscribtions::where('list_id', $id)->delete();
        return Redirect::to('lists');
    }
 }

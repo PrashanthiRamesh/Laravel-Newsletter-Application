@@ -62,6 +62,34 @@ Route::get('subscriber/delete/{id}', [
 
 Route::get('/newsletters', 'NewslettersController@index');
 
+Route::get('newsletter/new', 'NewslettersController@new_newsletter');
+Route::post('newsletter/new', 'NewslettersController@create');
+
+Route::get('/newsletter/edit/{id}',[
+    'uses' => 'NewslettersController@edit_show',
+    'as'   => 'newsletter_edit'
+]);
+
+Route::post('/newsletter/edit/{id}',[
+    'uses' => 'NewslettersController@edit',
+    'as'   => 'newsletter_edit'
+]);
+
+Route::get('/newsletter/send/{id}',[
+    'uses' => 'NewslettersController@send',
+    'as'   => 'newsletter_send'
+]);
+
+Route::get('/newsletter/preview/{id}',[
+    'uses' => 'NewslettersController@preview',
+    'as'   => 'newsletter_preview'
+]);
+
+Route::get('/newsletter/delete/{id}',[
+    'uses' => 'NewslettersController@delete',
+    'as'   => 'newsletter_delete'
+]);
+
 /*
  * Lists
  */

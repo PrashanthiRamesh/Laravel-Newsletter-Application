@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
      //   $this->call('UserTableSeeder');
      //     $this->call('ListsTableSeeder');
        // $this->call('SubscribtionsTableSeeder');
-      //  $this->call('SubscribersTableSeeder');
+        $this->call('SubscribersTableSeeder');
+      //  $this->call('NewslettersTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -74,8 +75,23 @@ class SubscribersTableSeeder extends Seeder
     {
        // \Illuminate\Support\Facades\DB::table('subscribers')->delete();
         \App\Subscribers::create(array(
-            'email'=>'rvprashanthi@gmail.com',
-            'name'=>'Prash'
+            'email'=>'arya@gmail.com',
+            'name'=>'Arya'
+        ));
+    }
+
+}
+
+class NewslettersTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        // \Illuminate\Support\Facades\DB::table('subscribers')->delete();
+        \App\Newsletters::create(array(
+            'subject'=>'Promotional mail',
+            'body'=>'Blah',
+            'template_id' => '1'
         ));
     }
 

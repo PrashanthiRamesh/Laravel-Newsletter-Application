@@ -76,24 +76,7 @@
         td:first-child {
             border-left: 1px solid #cecfd5;
         }
-        .book-title {
-            color: #395870;
-            display: block;
-        }
-        .text-offset {
-            color: #7c7c80;
-            font-size: 12px;
-        }
-        .item-stock,
-        .item-qty {
-            text-align: center;
-        }
-        .item-price {
-            text-align: right;
-        }
-        .item-multiple {
-            display: block;
-        }
+
         tfoot {
             text-align: right;
         }

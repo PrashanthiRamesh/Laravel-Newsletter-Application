@@ -80,20 +80,7 @@
             color: #395870;
             display: block;
         }
-        .text-offset {
-            color: #7c7c80;
-            font-size: 12px;
-        }
-        .item-stock,
-        .item-qty {
-            text-align: center;
-        }
-        .item-price {
-            text-align: right;
-        }
-        .item-multiple {
-            display: block;
-        }
+
         tfoot {
             text-align: right;
         }
@@ -108,6 +95,7 @@
         tfoot tr:last-child td:last-child {
             border-bottom-right-radius: 5px;
         }
+
         form {
             width: 100%;
             margin: 0 auto;
@@ -166,6 +154,7 @@
             float: right;
         }
 
+
     </style>
 </head>
 <body>
@@ -184,8 +173,8 @@
             <ul class="nav navbar-nav">
                 <li ><a href="/home">Home</a></li>
                 <li><a href="/subscribers">Subscribers</a></li>
-                <li ><a href="/newsletters">Newsletters</a></li>
-                <li class="active" ><a href="/lists">Lists</a></li>
+                <li class="active" ><a href="/newsletters">Newsletters</a></li>
+                <li  ><a href="/lists">Lists</a></li>
                 <li><a href="/templates">Templates</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -201,19 +190,19 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h1>New List</h1>
+            <h1>New Newsletter</h1>
             <hr>
 
-            {{ Form::open(array('url' => '/list/new', 'method'=>'post')) }}
+            {{ Form::open(array('url' => '/newsletter/new', 'method'=>'post')) }}
 
-            {{ Form::label('name', 'List Name:')}}
-            {{ Form::text('name', '')}}
+            {{ Form::label('subject', 'Subject:')}}
+            {{ Form::text('subject', '')}}
             <br><br>
-            {{ Form::label('desc', 'Description:')}}
-            {{ Form::text('desc', '')}}
+            {{ Form::label('body', 'Body:')}}
+            {{ Form::textarea('body', '', ['size' => '70x10']) }}
             <br>
 
-            {{Form::submit('Add List')}}
+            {{Form::submit('Add Newsletter')}}
             {{ Form::close() }}
 
 
