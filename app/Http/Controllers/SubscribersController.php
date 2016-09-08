@@ -37,13 +37,16 @@ class SubscribersController extends Controller
             ->with('lists', $lists);
     }
 
-    public function delete_show()
+    public function delete_show($id)
     {
-        return View::make('subscriber_delete');
+        $subscriber = Subscribers::find($id);
+        $subscriber->delete();
+        return Redirect::to('subscribers');
     }
 
     public function edit()
     {
+
         $id = Input::get('id');
         $subscriber = Subscribers::find($id)->first();
         $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
@@ -52,13 +55,24 @@ class SubscribersController extends Controller
         $subscriber->save();
         $lists = Input::get('list');
         foreach ($lists as $list) {
-            //TODO if not $list exists in subscribtions create  a subscribtion
-            if(!$subscribtions->where('list_id',$list)){
-                $subscribtions->subscribers_id=$id;
-                $subscribtions->list_id=$list;
-                $subscribtions->save();
+            $subscribtion = $subscribtions->where('list_id', '=', $list)->first();
+            if ($subscribtion === null) {
+                $sub = new Subscribtions();
+                $sub->subscribers_id = $id;
+                $sub->list_id = $list;
+                $sub->save();
             }
         }
+
+        foreach ($subscribtions as $subscribtion) {
+            if (!in_array($subscribtion->list_id, $lists)) {
+                //delete record
+                $subscribtion->delete();
+
+            }
+
+        }
+
         return Redirect::to('subscribers');
     }
 

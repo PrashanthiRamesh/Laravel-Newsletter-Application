@@ -56,7 +56,6 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="home">Home</a></li>
-                <li><a href="messages">Messages</a></li>
                 <li><a href="subscribers">Subscribers</a></li>
                 <li><a href="newsletters">Newsletters</a></li>
                 <li><a href="lists">Lists</a></li>

@@ -126,7 +126,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li ><a href="home">Home</a></li>
-                <li><a href="messages">Messages</a></li>
+
                 <li  class="active" ><a href="subscribers">Subscribers</a></li>
                 <li ><a href="newsletters">Newsletters</a></li>
                 <li><a href="lists">Lists</a></li>
@@ -165,7 +165,7 @@
                         <td > {{ $subscriber->name }}</td>
                         <td > {{ $subscriber->email }} </td>
                         <td>  <a href="{!! route('subscriber_edit', ['id'=>$subscriber->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
-                        <td>  <a href="subscriber/delete" onclick="return confirm('Are you sure you want to delete this subscriber ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
+                        <td>  <a href="{!! route('subscriber_delete', ['id'=>$subscriber->id]) !!} " onclick="return confirm('Are you sure you want to delete this subscriber ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
                     </tr>
                 @endforeach
 
