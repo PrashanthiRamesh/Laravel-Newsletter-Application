@@ -74,15 +74,6 @@ class NewslettersController extends Controller
 
                $job = (new SendNewsletter($subscriber->email, $subscriber->name, $newsletter_id));
                $this->dispatch($job);
-//               $newsletter=Newsletters::find($newsletter_id);
-//               $mailer->send('newsletter_template', ['content' => $newsletter->body], function($message) {
-//                   $newsletter_id=Input::get('newsletter_id');
-//                   $newsletter=Newsletters::find($newsletter_id);
-//                   $message->from(env('MAIL_FROM'), 'Flycart');
-//                   $message->to('rvprashanthi@gmail.com', 'Prash');
-//                   //Add a subject
-//                   $message->subject($newsletter->subject);
-//               });
            }
 
        }

@@ -1,249 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Prango Newsletter</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
+@extends ('layouts.dashboard')
+@section('page_heading','Edit Subscriber')
+@section('section')
 
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: 450px
-        }
+<style>
+    form {
+        width: 170%;
+        margin: 0 auto;
+    }
 
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
+    label, input {
+        /* in order to define widths */
+        display: inline-block;
+    }
 
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
+    label {
+        width: 20%;
+        /* positions the label text beside the input */
+        text-align: right;
+    }
 
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
+    label + input {
+        width: 40%;
+        /* large margin-right to force the next element to the new-line
+           and margin-left to create a gutter between the label and input */
+        margin: 0 30% 0 4%;
+    }
 
-            .row.content {
-                height: auto;
-            }
+    form input[type="submit"] {
+        background-color: #ce8483;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 200px;
+        top: 70px;
+        position: relative;
 
-        }
+        left: 50px;
 
-        table {
-            border-collapse: separate;
-            border-spacing: 0;
-            color: #4a4a4d;
-            font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
+    }
 
-        th,
-        td {
-            padding: 10px 15px;
-            vertical-align: middle;
-        }
+    form input[type="checkbox"] {
 
-        thead {
-            background: #395870;
-            background: linear-gradient(#337ab7, #1f648b);
-            color: #fff;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
+        padding: 14px 20px;
+        margin: 8px 0;
 
-        th:first-child {
-            border-top-left-radius: 5px;
-            text-align: left;
-        }
+        cursor: pointer;
+        width: 200px;
 
-        th:last-child {
-            border-top-right-radius: 5px;
-        }
+        position: relative;
 
-        tbody tr:nth-child(even) {
-            background: #f0f0f2;
-        }
+        left: 100px;
 
-        td {
-            border-bottom: 1px solid #cecfd5;
-            border-right: 1px solid #cecfd5;
-        }
+    }
 
-        td:first-child {
-            border-left: 1px solid #cecfd5;
-        }
+    /* only the submit button is matched by this selector,
+       but to be sure you could use an id or class for that button */
+    input + input {
+        float: right;
+    }
 
-        tfoot {
-            text-align: right;
-        }
+    ​
 
-        tfoot tr:last-child {
-            background: #f0f0f2;
-            color: #395870;
-            font-weight: bold;
-        }
+</style>
+    <div class="col-sm-8 text-left">
 
-        tfoot tr:last-child td:first-child {
-            border-bottom-left-radius: 5px;
-        }
+        {{ Form::open(array('url' => '/subscriber/edit/{id}', 'method'=>'post')) }}
 
-        tfoot tr:last-child td:last-child {
-            border-bottom-right-radius: 5px;
-        }
+        {{ Form::hidden('id', $subscriber->id) }}
+        {{ Form::label('name', 'Subscriber Name:')}}
+        {{ Form::text('name', $subscriber->name)}}
+        <br>
+        {{ Form::label('email', 'Subscriber Email ID:')}}
+        {{ Form::text('email', $subscriber->email)}}
+        <br><br>
+        {{ Form::label('lists', 'Lists:')}}<br>
 
-        form {
-            width: 100%;
-            margin: 0 auto;
-        }
+        @foreach ($lists as $list)
 
-        label, input {
-            /* in order to define widths */
-            display: inline-block;
-        }
+            @if($subscribtions->where('list_id',$list->id)->all())
 
-        label {
-            width: 30%;
-            /* positions the label text beside the input */
-            text-align: right;
-        }
+                {{ Form::checkbox('list[]',$list->id, true) }} &nbsp {{$list->name}}
+            @else
+                {{ Form::checkbox('list[]',$list->id, false) }} &nbsp {{$list->name}}
 
-        label + input {
-            width: 30%;
-            /* large margin-right to force the next element to the new-line
-               and margin-left to create a gutter between the label and input */
-            margin: 0 30% 0 4%;
-        }
-
-        form input[type="submit"] {
-            background-color: #ce8483;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 200px;
-            top: 100px;
-            position: relative;
-
-            left: 100px;
-
-        }
-
-        form input[type="checkbox"] {
-
-            padding: 14px 20px;
-            margin: 8px 0;
-
-            cursor: pointer;
-            width: 200px;
-
-            position: relative;
-
-            left: 100px;
-
-        }
-
-        /* only the submit button is matched by this selector,
-           but to be sure you could use an id or class for that button */
-        input + input {
-            float: right;
-        }
-
-        ​
-
-    </style>
-</head>
-<body>
-
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            {{--<a class="navbar-brand" href="#">Logo</a>--}}
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="/home">Home</a></li>
-                <li class="active"><a href="/subscribers">Subscribers</a></li>
-                <li><a href="/newsletters">Newsletters</a></li>
-                <li><a href="/lists">Lists</a></li>
-                <li><a href="/templates">Templates</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
-
-        </div>
-        <div class="col-sm-8 text-left">
-            <h1>Edit Subscriber</h1>
-            <hr>
-            {{ Form::open(array('url' => '/subscriber/edit/{id}', 'method'=>'post')) }}
-
-            {{ Form::hidden('id', $subscriber->id) }}
-            {{ Form::label('name', 'Subscriber Name:')}}
-            {{ Form::text('name', $subscriber->name)}}
+            @endif
             <br>
-            {{ Form::label('email', 'Subscriber Email ID:')}}
-            {{ Form::text('email', $subscriber->email)}}
-            <br>
-            {{ Form::label('lists', 'Lists:')}}<br>
-
-            @foreach ($lists as $list)
-
-                @if($subscribtions->where('list_id',$list->id)->all())
-
-                    {{ Form::checkbox('list[]',$list->id, true) }} &nbsp {{$list->name}}
-                @else
-                    {{ Form::checkbox('list[]',$list->id, false) }} &nbsp {{$list->name}}
-
-                @endif
-               <br>
-            @endforeach
+        @endforeach
 
 
-            <br><br>
-            {{Form::submit('Edit Subscriber')}}
-            {{ Form::close() }}
+        <br><br>
+        {{Form::submit('Edit Subscriber')}}
+        {{ Form::close() }}
 
 
-        </div>
-        <div class="col-sm-2 sidenav">
-
-        </div>
     </div>
-</div>
-
-<footer class="container-fluid text-center">
-    <p></p>
-</footer>
-
-</body>
-</html>
-
+@stop

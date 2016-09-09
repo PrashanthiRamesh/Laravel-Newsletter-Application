@@ -27,7 +27,7 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
  */
 
 Route::get('home', function () {
-    return view('index');
+    return view('home');
 });
 
 /*
