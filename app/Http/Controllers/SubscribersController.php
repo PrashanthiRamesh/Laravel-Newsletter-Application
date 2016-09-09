@@ -55,25 +55,31 @@ class SubscribersController extends Controller
         $subscriber->email = Input::get('email');
         $subscriber->save();
         $lists = Input::get('list');
-        foreach ($lists as $list) {
-            $subscribtion = $subscribtions->where('list_id', '=', $list)->first();
-            if ($subscribtion === null) {
-                $sub = new Subscribtions();
-                $sub->subscribers_id = $id;
-                $sub->list_id = $list;
-                $sub->save();
-            }
-        }
-
-        foreach ($subscribtions as $subscribtion) {
-            if (!in_array($subscribtion->list_id, $lists)) {
-                //delete record
-                $subscribtion->delete();
+        if(empty($lists)){
+            foreach ($subscribtions as $subscribtion) {
+                    $subscribtion->delete();
 
             }
+        }else {
+            foreach ($lists as $list) {
+                $subscribtion = $subscribtions->where('list_id', '=', $list)->first();
+                if ($subscribtion === null) {
+                    $sub = new Subscribtions();
+                    $sub->subscribers_id = $id;
+                    $sub->list_id = $list;
+                    $sub->save();
+                }
+            }
 
+            foreach ($subscribtions as $subscribtion) {
+                if (!in_array($subscribtion->list_id, $lists)) {
+                    //delete record
+                    $subscribtion->delete();
+
+                }
+
+            }
         }
-
         return Redirect::to('subscribers');
     }
 

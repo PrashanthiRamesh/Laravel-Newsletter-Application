@@ -80,6 +80,11 @@ Route::get('/newsletter/send/{id}',[
     'as'   => 'newsletter_send'
 ]);
 
+Route::post('/newsletter/send',[
+    'uses' => 'NewslettersController@send_mail',
+    'as'   => 'newsletter_sendmail'
+]);
+
 Route::get('/newsletter/preview/{id}',[
     'uses' => 'NewslettersController@preview',
     'as'   => 'newsletter_preview'

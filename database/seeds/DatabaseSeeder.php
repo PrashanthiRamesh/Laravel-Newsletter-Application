@@ -75,8 +75,8 @@ class SubscribersTableSeeder extends Seeder
     {
        // \Illuminate\Support\Facades\DB::table('subscribers')->delete();
         \App\Subscribers::create(array(
-            'email'=>'arya@gmail.com',
-            'name'=>'Arya'
+            'email'=>'tyrion@gmail.com',
+            'name'=>'Tyrion'
         ));
     }
 
