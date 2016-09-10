@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Lists;
+use App\Newsletters;
+use App\Subscribers;
+use App\Subscribtions;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,7 +20,6 @@ class HomeController extends Controller
 {
     public function showLogin()
     {
-
         // show the form
         return View::make('login');
     }
@@ -64,5 +68,19 @@ class HomeController extends Controller
     {
         Auth::logout(); // log the user out of our application
         return Redirect::to('login '); // redirect the user to the login screen
+    }
+
+
+    //Dashboard
+
+    public function get(){
+        $count=array(
+            'users' => User::count(),
+            'subscribers' => Subscribers::count(),
+            'subscribtions' => Subscribtions::count(),
+            'lists' => Lists::count(),
+            'newsletters' => Newsletters::count()
+        );
+        return View::make('home')->with('count',$count);
     }
 }

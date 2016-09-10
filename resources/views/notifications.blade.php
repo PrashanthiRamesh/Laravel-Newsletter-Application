@@ -3,7 +3,7 @@
 @section ('page_heading','Alerts')
 
 @section('section')
-</div>
+
 	@section ('alert1_panel_title','Regular Alerts')
 	@section ('alert1_panel_body')
 	@include('widgets.alert', array('class'=>'success', 'message'=> 'You have an alert', 'icon'=> 'user'))

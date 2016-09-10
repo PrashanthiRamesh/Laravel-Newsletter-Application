@@ -26,9 +26,8 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
  * Home Page
  */
 
-Route::get('home', function () {
-    return view('home');
-});
+Route::get('home', 'HomeController@get');
+
 
 /*
  * Subscribers

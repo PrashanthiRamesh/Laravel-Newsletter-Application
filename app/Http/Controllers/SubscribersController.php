@@ -94,17 +94,23 @@ class SubscribersController extends Controller
             )
         );
 
-        if ($validation->fails()) {
-            return $validation->errors()->first();
+        if($validation->fails()) {
+
+            return Redirect::back()->withErrors($validation)->withInput();
+
+
         } else {
 
-            $create = Subscribers::create(array(
-                'email' => Input::get('email')
+            Subscribers::create(array(
+                'email' => Input::get('email'),
+                'name' => Input::get('name')
             ));
 
             //If successful, we will be returning the '1' so the form//understands it's successful
             //or if we encountered an unsuccessful creation attempt,return its info
-            return Redirect::to('subscribers');
+            echo "<script>alert( 'Subscriber Added '); window.location.href='/subscribe';</script>";
+
+
         }
 
 

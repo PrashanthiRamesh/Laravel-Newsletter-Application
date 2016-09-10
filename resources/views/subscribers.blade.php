@@ -55,6 +55,8 @@
     }
     </style>
                 <div class="col-sm-2 sidenav">
+                    <a href="/subscribe" class="large">new subscriber »</a>
+                    <hr>
                     <table>
                         <thead>
                         <tr>

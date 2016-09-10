@@ -1,45 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Prango Newsletter</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+@extends('layouts.dashboard')
+@section('page_heading','Newsletters')
+
+@section('section')
     <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-            .row.content {height:auto;}
-        }
-
         table {
             border-collapse: separate;
             border-spacing: 0;
@@ -53,7 +16,7 @@
         }
         thead {
             background: #395870;
-            background: linear-gradient(#ce8483, #ff6666);
+            background: linear-gradient(#337ab7, #1f648b);
             color: #fff;
             font-size: 11px;
             text-transform: uppercase;
@@ -75,7 +38,6 @@
         td:first-child {
             border-left: 1px solid #cecfd5;
         }
-
         tfoot {
             text-align: right;
         }
@@ -90,87 +52,39 @@
         tfoot tr:last-child td:last-child {
             border-bottom-right-radius: 5px;
         }
-
     </style>
-</head>
-<body>
+    <div class="col-sm-8 text-left">
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            {{--<a class="navbar-brand" href="#">Logo</a>--}}
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li ><a href="home">Home</a></li>
-                <li><a href="subscribers">Subscribers</a></li>
-                <li class="active" ><a href="newsletters">Newsletters</a></li>
-                <li><a href="lists">Lists</a></li>
-                <li><a href="templates">Templates</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        <a href="newsletter/new" class="large">new newsletter »</a>
+        <hr>
+        <table>
+            <thead>
+            <tr>
+                <th scope="col" >ID</th>
+                <th scope="col" colspan="5" >Subject</th>
 
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-2 sidenav">
+            </tr>
+            </thead>
+            <tbody>
 
-        </div>
-        <div class="col-sm-8 text-left">
-            <h1>Newsletters</h1>
-            <hr>
+            @foreach ($newsletters as $newsletter)
 
-            <a href="newsletter/new" class="large">new newsletter »</a>
-            <hr>
-            <table>
-                <thead>
                 <tr>
-                    <th scope="col" >ID</th>
-                    <th scope="col" colspan="5" >Subject</th>
+
+                    <td> {{ $newsletter->id }}</td>
+                    <td > {{ $newsletter->subject }}</td>
+                    <td>  <a href="{!! route('newsletter_send', ['id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to send this newsletter ?')">{{ HTML::image('img/mail-send.png') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_preview', ['id'=>$newsletter->id]) !!} ">{{ HTML::image('img/preview.png') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_edit', ['id'=>$newsletter->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_delete', ['id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to delete this newsletter ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
 
                 </tr>
-                </thead>
-                <tbody>
+            @endforeach
 
-                @foreach ($newsletters as $newsletter)
+            </tbody>
 
-                    <tr>
+        </table>
 
-                        <td> {{ $newsletter->id }}</td>
-                        <td > {{ $newsletter->subject }}</td>
-                        <td>  <a href="{!! route('newsletter_send', ['id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to send this newsletter ?')">{{ HTML::image('img/mail-send.png') }}</a></td>
-                        <td>  <a href="{!! route('newsletter_preview', ['id'=>$newsletter->id]) !!} ">{{ HTML::image('img/preview.png') }}</a></td>
-                        <td>  <a href="{!! route('newsletter_edit', ['id'=>$newsletter->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
-                        <td>  <a href="{!! route('newsletter_delete', ['id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to delete this newsletter ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
-
-                    </tr>
-                @endforeach
-
-                </tbody>
-
-            </table>
-
-            <p></p>
-        </div>
-        <div class="col-sm-2 sidenav">
-
-        </div>
+        <p></p>
     </div>
-</div>
-
-<footer class="container-fluid text-center">
-    <p></p>
-</footer>
-
-</body>
-</html>
-
+@stop
