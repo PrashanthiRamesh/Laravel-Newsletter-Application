@@ -222,7 +222,7 @@
                     {{--@endsection--}}
                     {{--@include('widgets.panel', array('header'=>true, 'as'=>'cchart11'))--}}
 
-                    @section ('pane1_panel_title', 'Notifications Panel')
+
                     @section ('pane1_panel_body')
                      
 
@@ -252,11 +252,7 @@
                                     <span class="pull-right text-muted small"><em> {{ $count['newsletters'] }}</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Templates
-                                    <span class="pull-right text-muted small"><em>NA</em>
-                                    </span>
-                                </a>
+
 
                             </div>
 

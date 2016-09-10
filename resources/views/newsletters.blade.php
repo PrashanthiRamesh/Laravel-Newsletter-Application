@@ -55,8 +55,6 @@
     </style>
     <div class="col-sm-8 text-left">
 
-        <a href="newsletter/new" class="large">new newsletter »</a>
-        <hr>
         <table>
             <thead>
             <tr>

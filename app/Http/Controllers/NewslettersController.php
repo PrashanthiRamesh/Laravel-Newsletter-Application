@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Jobs\SendNewsletter;
 use App\Lists;
 use App\Newsletters;
+use App\Senders;
 use App\Subscribers;
 use App\Subscribtions;
 use Illuminate\Mail\Mailer;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Validator;
 
 
 class NewslettersController extends Controller
@@ -20,6 +22,68 @@ class NewslettersController extends Controller
     public function index(){
         $newsletters=DB::table('newsletters')->orderBy('id')->get();
         return View::make('newsletters')->with('newsletters',$newsletters);
+    }
+
+    public function add_sender(){
+        return View::make('sender_add');
+    }
+
+
+
+    public function verify_sender(){
+        $rules = array(
+            'email' => 'required|email|unique:senders', // make sure the email is an actual email
+            'name' => 'required',
+            'designation'=> 'required'
+        );
+
+// run the validation rules on the inputs from the form
+        $validator = Validator::make(Input::all(), $rules);
+
+// if the validator fails, redirect back to the form
+        if ($validator->fails()) {
+            return Redirect::to('/sender/add')
+                ->withErrors($validator)// send back all errors to the login form
+                ->withInput(Input::all()); // send back the input (not the password) so that we can repopulate the form
+        } else {
+
+
+            $sender = array(
+                'name'=> Input::get('name'),
+                'email' => Input::get('email'),
+                'designation' => Input::get('designation'),
+                'selected'=> false
+            );
+
+            Senders::create($sender);
+            echo "<script>alert('Sender added successfully'); window.location.href='/sender/add';</script>";
+
+
+        }
+    }
+
+    public function change_sender(){
+        $senders=Senders::all();
+        return View::make('sender_change')->with('senders', $senders);
+    }
+
+    public function changesender(){
+
+        $sender_id=(Input::get('sender'));
+
+        $senders=Senders::all();
+        foreach ( $senders as $sender){
+            if($sender->id == $sender_id['0']){
+                $sender->selected=true;
+
+            }else{
+                $sender->selected=false;
+            }
+            $sender->save();
+        }
+
+        echo "<script>alert('Sender Changed'); window.location.href='/sender/change';</script>";
+
     }
 
     public function edit_show($id){
@@ -82,8 +146,10 @@ class NewslettersController extends Controller
 
     }
 
-    public function preview(){
-
+    public function preview($id){
+        $newsletter = Newsletters::find($id);
+        return View::make('preview')->with('content',$newsletter->body)
+                                                ->with('name', 'Tyrion Lannister');
     }
 
     public function create(){

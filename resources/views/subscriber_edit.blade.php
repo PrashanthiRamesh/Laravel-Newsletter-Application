@@ -3,62 +3,42 @@
 @section('section')
 
 <style>
-    form {
-        width: 170%;
-        margin: 0 auto;
+    input{
+        font-size:18px
     }
-
-    label, input {
-        /* in order to define widths */
-        display: inline-block;
-    }
-
-    label {
-        width: 20%;
-        /* positions the label text beside the input */
-        text-align: right;
-    }
-
-    label + input {
-        width: 40%;
-        /* large margin-right to force the next element to the new-line
-           and margin-left to create a gutter between the label and input */
+    input[type=text] {
+        width: 80%;
         margin: 0 30% 0 4%;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
     }
 
+    input[type=text]:focus {
+        width: 150%;
+    }
     form input[type="submit"] {
+        margin: 0 30% 0 4%;
         background-color: #ce8483;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
         border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
         cursor: pointer;
-        width: 200px;
-        top: 70px;
-        position: relative;
 
-        left: 50px;
+    }
+    form input[type="submit"]:hover {
+        background-color: #ff6666;
+
+    }
+    form label{
+        margin: 0 30% 0 4%;
+        font-size:18px
 
     }
 
-    form input[type="checkbox"] {
-
-        padding: 14px 20px;
-        margin: 8px 0;
-
-        cursor: pointer;
-        width: 200px;
-
-        position: relative;
-
-        left: 100px;
-
-    }
-
-    /* only the submit button is matched by this selector,
-       but to be sure you could use an id or class for that button */
-    input + input {
-        float: right;
+    form input[type="checkbox"]{
+        margin: 0 0% 0 4%;
+        font-size:18px
     }
 
     ​
@@ -69,13 +49,13 @@
         {{ Form::open(array('url' => '/subscriber/edit/{id}', 'method'=>'post')) }}
 
         {{ Form::hidden('id', $subscriber->id) }}
-        {{ Form::label('name', 'Subscriber Name:')}}
-        {{ Form::text('name', $subscriber->name)}}
-        <br>
-        {{ Form::label('email', 'Subscriber Email ID:')}}
-        {{ Form::text('email', $subscriber->email)}}
+
+        {{ Form::text('name', $subscriber->name, array('placeholder'=>'Type subscriber\'s Name here'))}}
         <br><br>
-        {{ Form::label('lists', 'Lists:')}}<br>
+
+        {{ Form::text('email', $subscriber->email, array('placeholder'=>'Type subscriber\'s Email here'))}}
+        <br><br>
+        {{ Form::label('lists', 'Lists:')}}<br><br>
 
         @foreach ($lists as $list)
 

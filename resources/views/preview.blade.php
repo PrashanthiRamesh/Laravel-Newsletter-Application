@@ -1,11 +1,15 @@
+@extends ('layouts.dashboard')
+@section('page_heading','Newsletter Preview')
+@section('section')
 
-<!doctype html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Simple Transactional Email</title>
+
+
+
+
     <style>
+        a {
+            text-decoration: none;
+        }
         /* -------------------------------------
             GLOBAL RESETS
         ------------------------------------- */
@@ -109,7 +113,7 @@
             margin-left: 5px; }
         a {
             color: #3498db;
-            text-decoration: underline; }
+            text-decoration: none }
         /* -------------------------------------
             BUTTONS
         ------------------------------------- */
@@ -302,8 +306,10 @@
 
                 <!-- END CENTERED WHITE CONTAINER --></div>
         </td>
-        <td>&nbsp;</td>
+
     </tr>
 </table>
 </body>
-</html>
+
+
+@stop

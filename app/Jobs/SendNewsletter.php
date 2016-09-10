@@ -35,7 +35,7 @@ class SendNewsletter implements ShouldQueue
     public function handle(Mailer $mailer)
     {
         $newsletter=Newsletters::find($this->newsletter_id);
-        $mailer->send('newsletter_template', ['content' => $newsletter->body], function($message) {
+        $mailer->send('newsletter_template', ['content' => $newsletter->body, 'name'=> $this->name], function($message) {
             $newsletter=Newsletters::find($this->newsletter_id);
             $message->from(env('MAIL_FROM'), 'Flycart');
             $message->to($this->emailAddress, $this->name);

@@ -28,6 +28,13 @@ Route::get('logout', array('uses' => 'HomeController@doLogout'));
 
 Route::get('home', 'HomeController@get');
 
+/*
+ * Settings
+ */
+
+Route::get('settings/user', 'UserController@get');
+
+Route::get('settings/queue', 'UserController@getqueue');
 
 /*
  * Subscribers
@@ -60,6 +67,14 @@ Route::get('subscriber/delete/{id}', [
  */
 
 Route::get('/newsletters', 'NewslettersController@index');
+
+Route::get('sender/add', 'NewslettersController@add_sender');
+
+Route::post('sender/add', 'NewslettersController@verify_sender');
+
+Route::get('sender/change', 'NewslettersController@change_sender');
+
+Route::post('sender/change', 'NewslettersController@changesender');
 
 Route::get('newsletter/new', 'NewslettersController@new_newsletter');
 Route::post('newsletter/new', 'NewslettersController@create');

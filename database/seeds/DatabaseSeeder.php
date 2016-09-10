@@ -16,8 +16,9 @@ class DatabaseSeeder extends Seeder
      //   $this->call('UserTableSeeder');
      //     $this->call('ListsTableSeeder');
        // $this->call('SubscribtionsTableSeeder');
-        $this->call('SubscribersTableSeeder');
+      //  $this->call('SubscribersTableSeeder');
       //  $this->call('NewslettersTableSeeder');
+        $this->call('SendersTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -92,6 +93,20 @@ class NewslettersTableSeeder extends Seeder
             'subject'=>'Promotional mail',
             'body'=>'Blah',
             'template_id' => '1'
+        ));
+    }
+
+}
+
+class SendersTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+         \App\Senders::create(array(
+            'name'=>'Prashanthi',
+             'email'=>'prashanthi@flycart.org',
+             'designation'=>'Intern'
         ));
     }
 

@@ -1,7 +1,7 @@
-@extends ('layouts.dashboard')
-@section('page_heading','Edit List')
-@section('section')
+@extends('layouts.dashboard')
+@section('page_heading','Add Sender')
 
+@section('section')
     <style>
         input{
             font-size:18px
@@ -37,27 +37,31 @@
         }
 
         form input[type="checkbox"]{
-            margin: 0 0% 0 4%;
+            margin: 0 0 0 4%;
             font-size:18px
         }
-
 
         ​
 
     </style>
     <div class="col-sm-8 text-left">
+        <p>
+            {{ $errors->first('name') }}<br>
+            {{ $errors->first('email') }}<br>
 
-        {{ Form::open(array('url' => '/list/edit/{id}', 'method'=>'post')) }}
+            {{ $errors->first('designation') }}
+        </p>
 
-        {{ Form::hidden('id', $list->id) }}
+        {{ Form::open(array('url' => '/sender/add', 'method'=>'post')) }}
 
-        {{ Form::text('name', $list->name, array('placeholder'=>'Type list Name here'))}}
+
+        {{ Form::text('name', '', array('placeholder'=>'Type Name here'))}}
         <br><br>
-
-        {{ Form::text('desc', $list->description, array('placeholder'=>'Type list describtion here'))}}
+        {{ Form::text('email', '', array('placeholder'=>'Type a verified email here'))}}
         <br><br>
-
-        {{Form::submit('Edit List')}}
+        {{ Form::text('designation', '', array('placeholder'=>'Type the designation of the sender here'))}}
+        <br><br>
+        {{Form::submit('Add Sender')}}
         {{ Form::close() }}
 
 

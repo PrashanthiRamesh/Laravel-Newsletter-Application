@@ -1,49 +1,61 @@
-<!doctype html>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Subscribe to Newsletter</title>
+@extends('layouts.dashboard')
+@section('page_heading','Subscribe to Newsletters')
+
+@section('section')
     <style>
 
-        body{
-            margin:0;
-            font-family:Arial,Tahoma,sans-serif;
-            text-align:center;padding-top:60px;
-            color:#666;
-            font-size:24px
-        }
+
         input{
             font-size:18px
         }
-        input[type=text]{
-            width:300px
+        input[type=text] {
+            width: 50%;
+            margin: 0 30% 0 4%;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
         }
 
+        input[type=text]:focus {
+            width: 90%;
+        }
+        form input[type="submit"] {
+            margin: 0 30% 0 4%;
+            background-color: #ce8483;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            cursor: pointer;
+
+        }
+        form input[type="submit"]:hover {
+            background-color: #ff6666;
+
+        }
+
+
     </style>
-</head>
-<body>
+
+    <body>
 
     @foreach($errors->all() as $error)
-    <p>
-        {{$error}}
-    </p>
+        <p>
+            {{$error}}
+        </p>
     @endforeach
 
 
 
 
-{{Form::open(array('url'=> URL::to('subscribe/submit'),'method' => 'post'))}}<p>Newsletter Subscription</p>
+    {{Form::open(array('url'=> URL::to('subscribe/submit'),'method' => 'post'))}}
 
-{{Form::text('name',null,array('placeholder'=>'Type your Name here'))}}
-<br><br>
-{{Form::text('email',null,array('placeholder'=>'Type your E-mail address here'))}}
-<br><br>
-{{Form::submit('Subscribe')}}
-    <hr>
-    <a href="/login" class="large">Login</a>
+    {{Form::text('name',null,array('placeholder'=>'Type your Name here'))}}
+    <br><br>
+    {{Form::text('email',null,array('placeholder'=>'Type your E-mail address here'))}}
+    <br><br>
+    {{Form::submit('Subscribe')}}
 
-{{Form::close()}}
+    {{Form::close()}}
 
-</body>
-</html>
+    </body>
+@stop

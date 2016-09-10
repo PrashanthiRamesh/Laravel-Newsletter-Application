@@ -55,8 +55,7 @@
     </style>
     <div class="col-sm-8 text-left">
 
-        <a href="list/new" class="large">new list »</a>
-        <hr>
+
         <table>
             <thead>
             <tr>

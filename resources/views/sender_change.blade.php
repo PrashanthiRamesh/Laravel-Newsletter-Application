@@ -1,11 +1,12 @@
-@extends ('layouts.dashboard')
-@section('page_heading','Edit List')
-@section('section')
+@extends('layouts.dashboard')
+@section('page_heading','Change Sender')
 
+@section('section')
     <style>
-        input{
-            font-size:18px
+        input {
+            font-size: 18px
         }
+
         input[type=text] {
             width: 80%;
             margin: 0 30% 0 4%;
@@ -16,6 +17,7 @@
         input[type=text]:focus {
             width: 150%;
         }
+
         form input[type="submit"] {
             margin: 0 30% 0 4%;
             background-color: #ce8483;
@@ -26,40 +28,43 @@
             cursor: pointer;
 
         }
+
         form input[type="submit"]:hover {
             background-color: #ff6666;
 
         }
-        form label{
+
+        form label {
             margin: 0 30% 0 4%;
-            font-size:18px
+            font-size: 18px
 
         }
 
-        form input[type="checkbox"]{
-            margin: 0 0% 0 4%;
-            font-size:18px
+        form input[type="checkbox"] {
+            margin: 0 0 0 4%;
+            font-size: 18px
         }
-
 
         ​
 
     </style>
     <div class="col-sm-8 text-left">
+        {{ Form::open(array('url' => '/sender/change', 'method'=>'post')) }}
 
-        {{ Form::open(array('url' => '/list/edit/{id}', 'method'=>'post')) }}
 
-        {{ Form::hidden('id', $list->id) }}
+        @foreach ($senders as $sender)
 
-        {{ Form::text('name', $list->name, array('placeholder'=>'Type list Name here'))}}
+            @if($sender->selected== true)
+                {{ Form::radio('sender[]',$sender->id, true) }} &nbsp {{$sender->email}}
+            @else
+                {{ Form::radio('sender[]',$sender->id, false) }} &nbsp {{$sender->email}}
+
+            @endif
+            <br>
+        @endforeach
         <br><br>
-
-        {{ Form::text('desc', $list->description, array('placeholder'=>'Type list describtion here'))}}
-        <br><br>
-
-        {{Form::submit('Edit List')}}
+        {{Form::submit('Change Sender')}}
         {{ Form::close() }}
-
 
     </div>
 @stop

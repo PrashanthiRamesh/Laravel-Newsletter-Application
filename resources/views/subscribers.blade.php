@@ -53,10 +53,10 @@
     tfoot tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
     }
+
     </style>
                 <div class="col-sm-2 sidenav">
-                    <a href="/subscribe" class="large">new subscriber »</a>
-                    <hr>
+
                     <table>
                         <thead>
                         <tr>
