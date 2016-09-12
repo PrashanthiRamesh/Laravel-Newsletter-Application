@@ -52,6 +52,7 @@ class HomeController extends Controller
             if (Auth::attempt($userdata)) {
 
                 // validation successful!
+
                 return Redirect::to('home');
 
             } else {

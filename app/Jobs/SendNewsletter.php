@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Newsletters;
+use App\Senders;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailer;
 use Illuminate\Queue\SerializesModels;
@@ -15,6 +16,9 @@ class SendNewsletter implements ShouldQueue
     protected $emailAddress;
     protected $name;
     protected $newsletter_id;
+    protected $from_id;
+    protected $from_name;
+    protected $from_designation;
     /**
      * Create a new job instance.
      *
@@ -25,6 +29,10 @@ class SendNewsletter implements ShouldQueue
         $this->emailAddress = $emailAddress;
         $this->name = $name;
         $this->newsletter_id = $newsletter_id;
+        $from=Senders::where('selected',true)->first()->toArray();
+        $this->from_id=$from['email'];
+        $this->from_name=$from['name'];
+        $this->from_designation=$from['designation'];
     }
 
     /**
@@ -37,7 +45,7 @@ class SendNewsletter implements ShouldQueue
         $newsletter=Newsletters::find($this->newsletter_id);
         $mailer->send('newsletter_template', ['content' => $newsletter->body, 'name'=> $this->name], function($message) {
             $newsletter=Newsletters::find($this->newsletter_id);
-            $message->from(env('MAIL_FROM'), 'Flycart');
+            $message->from($this->from_id, 'Flycart');
             $message->to($this->emailAddress, $this->name);
             //Add a subject
             $message->subject($newsletter->subject);

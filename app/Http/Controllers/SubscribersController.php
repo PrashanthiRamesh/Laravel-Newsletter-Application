@@ -105,9 +105,6 @@ class SubscribersController extends Controller
                 'email' => Input::get('email'),
                 'name' => Input::get('name')
             ));
-
-            //If successful, we will be returning the '1' so the form//understands it's successful
-            //or if we encountered an unsuccessful creation attempt,return its info
             echo "<script>alert( 'Subscriber Added '); window.location.href='/subscribe';</script>";
 
 
