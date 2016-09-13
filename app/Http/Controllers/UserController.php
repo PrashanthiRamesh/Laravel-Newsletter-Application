@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+
+    }
+
+
     public function get(){
         $user_id=Auth::user()->id;
         $user= User::where('id', $user_id)->first();

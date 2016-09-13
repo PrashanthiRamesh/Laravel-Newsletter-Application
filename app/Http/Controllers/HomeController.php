@@ -19,6 +19,14 @@ use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
+
+    public function __construct()
+    {
+
+
+    }
+
+
     public function showLogin()
     {
         // show the form

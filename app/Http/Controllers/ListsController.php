@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\View;
 
 class ListsController extends Controller
 {
+
+    public function __construct()
+    {
+
+    }
+
+
    public function index(){
 
        $lists=DB::table('lists')->orderBy('id')->get();

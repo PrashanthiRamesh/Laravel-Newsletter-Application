@@ -19,6 +19,13 @@ use Illuminate\Support\Facades\Validator;
 
 class NewslettersController extends Controller
 {
+
+    public function __construct()
+    {
+
+    }
+
+
     public function index(){
         $newsletters=DB::table('newsletters')->orderBy('id')->get();
         return View::make('newsletters')->with('newsletters',$newsletters);
