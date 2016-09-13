@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Lists;
 use App\Newsletters;
+use App\Senders;
 use App\Subscribers;
 use App\Subscribtions;
 use App\User;
-use Illuminate\Http\Request;
+
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -80,7 +81,8 @@ class HomeController extends Controller
             'subscribers' => Subscribers::count(),
             'subscribtions' => Subscribtions::count(),
             'lists' => Lists::count(),
-            'newsletters' => Newsletters::count()
+            'newsletters' => Newsletters::count(),
+            'senders'=> Senders::count()
         );
         return View::make('home')->with('count',$count);
     }

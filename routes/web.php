@@ -34,6 +34,23 @@ Route::get('home', 'HomeController@get');
 
 Route::get('settings/user', 'UserController@get');
 
+Route::post('settings/user', 'UserController@saveUser');
+
+Route::get('/settings/user/{id}',[
+    'uses' => 'UserController@forgotPassword',
+    'as'   => 'forgot_password'
+]);
+
+Route::get('password/change/{id}',[
+    'uses' => 'UserController@changePassword',
+    'as'   => 'change_password'
+]);
+
+Route::post('password/change/{id}',[
+    'uses' => 'UserController@change',
+    'as'   => 'change_password'
+]);
+
 Route::get('settings/queue', 'UserController@getqueue');
 
 /*

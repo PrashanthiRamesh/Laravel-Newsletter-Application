@@ -227,32 +227,36 @@
                      
 
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
+                                <a href="/settings/user" class="list-group-item">
                                     <i class="fa fa-comment fa-fw"></i> Users
                                     <span class="pull-right text-muted small"><em>{{ $count['users'] }}</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="/subscribers" class="list-group-item">
                                     <i class="fa fa-twitter fa-fw"></i> Subscribers
                                     <span class="pull-right text-muted small"><em>{{ $count['subscribers'] }}</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="/home" class="list-group-item">
                                     <i class="fa fa-envelope fa-fw"></i> Subscribtions
                                     <span class="pull-right text-muted small"><em>{{ $count['subscribtions'] }}</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="/lists" class="list-group-item">
                                     <i class="fa fa-tasks fa-fw"></i> Lists
                                     <span class="pull-right text-muted small"><em>{{ $count['lists'] }}</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="/newsletters" class="list-group-item">
                                     <i class="fa fa-upload fa-fw"></i> Newsletters
                                     <span class="pull-right text-muted small"><em> {{ $count['newsletters'] }}</em>
                                     </span>
                                 </a>
-
+                                <a href="/sender/change" class="list-group-item">
+                                    <i class="fa fa-upload fa-fw"></i> Senders
+                                    <span class="pull-right text-muted small"><em> {{ $count['senders'] }}</em>
+                                    </span>
+                                </a>
 
                             </div>
 

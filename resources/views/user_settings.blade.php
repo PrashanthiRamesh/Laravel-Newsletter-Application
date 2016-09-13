@@ -41,13 +41,16 @@
         font-size:18px
     }
 
-
+    a.password {
+        color: #c9302c;
+        margin: 0 30% 0 4%;
+    }
     ​
 
 </style>
 <div class="col-sm-8 text-left">
 
-    {{ Form::open(array('url' => '', 'method'=>'post')) }}
+    {{ Form::open(array('url' => '/settings/user', 'method'=>'post')) }}
 
     {{ Form::hidden('id', $user->id) }}
 
@@ -57,6 +60,8 @@
     {{ Form::text('email', $user->email, array('placeholder'=>'Type user email here'))}}
     <br><br>
 
+    <a class="password" href="{!! route('forgot_password', ['id'=>$user->id]) !!} " onclick="return confirm('A mail will be sent to ur email id. Confirm?')">Forgot Password {{ HTML::image('img/mail-send.png') }}</a>
+    <br> <br>
     {{Form::submit('Edit User Details')}}
     {{ Form::close() }}
 
