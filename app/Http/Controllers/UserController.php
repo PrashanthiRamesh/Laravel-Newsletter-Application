@@ -43,6 +43,7 @@ class UserController extends Controller
 
     }
 
+
     public function changePassword($id){
         $user=User::find($id);
         return View::make('forgot_password')->with('user',$user);
