@@ -46,9 +46,13 @@
         }
 
     </style>
+    <p>
+        {{ $errors->first('new_password') }}
+        {{ $errors->first('confirm_password') }}
+    </p>
     <div class="col-sm-8 text-left">
 
-        {{ Form::open(array('url' => '/password/change', 'method'=>'post')) }}
+        {{ Form::open(array('url' => '/password/change/{id}', 'method'=>'post')) }}
 
         {{ Form::hidden('id', $user->id) }}
         {{ Form::label('New Password') }}<br><br>

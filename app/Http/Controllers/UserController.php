@@ -6,6 +6,7 @@ use App\Jobs\ForgotPasswordEmail;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -42,13 +43,13 @@ class UserController extends Controller
 
     }
 
-    public function changePassword(){
-        $user=User::find(Input::get('id'));
-        dd(Input::get('id'));
+    public function changePassword($id){
+        $user=User::find($id);
         return View::make('forgot_password')->with('user',$user);
     }
 
-    public function change($id){
+    public function change(){
+        $id=Input::get('id');
         $rules = array(
             'new_password' => 'min:6|required',// make sure the email is an actual email
             'confirm_password' => 'min:6|required|same:new_password', // password can only be alphanumeric and has to be greater than 3 characters
@@ -56,9 +57,16 @@ class UserController extends Controller
 
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
-            return Redirect::to('/password/change/{id}')
-                ->withErrors($validator); // send back the input (not the password) so that we can repopulate the form
+            return redirect()->action(
+                'UserController@changePassword', ['id' => $id]
+            )->withErrors($validator);
+
+                 // send back the input (not the password) so that we can repopulate the form
         } else{
+            $user=User::find($id);
+            $user->password=Hash::make(Input::get('new_password'));
+            $user->save();
+            echo "<script>alert('User edited successfully'); window.location.href='/login';</script>";
 
         }
     }

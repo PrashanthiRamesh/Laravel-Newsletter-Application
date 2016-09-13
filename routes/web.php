@@ -34,7 +34,7 @@ Route::get('home', 'HomeController@get');
 
 Route::get('settings/user', 'UserController@get');
 
-Route::post('settings/user', 'UserController@saveUser');
+Route::post('settings/user/{id}', 'UserController@saveUser');
 
 Route::get('/settings/user/{id}',[
     'uses' => 'UserController@forgotPassword',
