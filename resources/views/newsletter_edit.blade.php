@@ -45,22 +45,53 @@
             margin: 0 30% 0 4%;
         }
 
+        .alert {
+            padding: 20px;
+            background-color: #2ab27b; /* Red */
+            color: white;
+            margin: 0 30% 0 4%;
+            font-size: 20px;
+        }
+        ​.closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+            cursor: pointer;
+        }
+
     </style>
     <div class="col-sm-8 text-left">
 
         {{ Form::open(array('url' => '/newsletter/edit/{id}', 'method'=>'post')) }}
 
         {{ Form::hidden('id', $newsletter->id) }}
-
+        {{ Form::label('Subject') }}<br><br>
         {{ Form::text('subject', $newsletter->subject, array('placeholder'=>'Subject'))}}
         <br><br>
-
-        {{ Form::textarea('body', $newsletter->body, array('placeholder'=>'Body', 'size' => '71x18')) }}
+        {{ Form::label('Message') }}<br><br>
+        {{ Form::textarea('body', $newsletter->body, array('placeholder'=>'Message', 'size' => '71x16')) }}
         <br><br>
 
         {{Form::submit('Edit Newsletter')}}
         {{ Form::close() }}
 
+        <br><br>
+
+        @if($success = \Illuminate\Support\Facades\Session::get('message_edit'))
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Success!</strong> {{ $success }}
+            </div>
+        @endif
 
     </div>
 @stop

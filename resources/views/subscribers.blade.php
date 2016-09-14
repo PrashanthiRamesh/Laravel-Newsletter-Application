@@ -53,10 +53,44 @@
     tfoot tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
     }
+    .alert{
+        padding: 20px;
+        background-color: #2ab27b; /* Red */
+        color: white;
+        margin: 0 30% 0 4%;
+        font-size: 20px;
+    }
+    ​.closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
+    .closebtn:hover {
+        color: black;
+        cursor: pointer;
+    }
+
+    .err{
+        padding: 20px ;
+        background-color: #f0ad4e; /* Red */
+        color: white;
+        margin: 0 30% 0 4%;
+        font-size: 20px;
+    }
     </style>
                 <div class="col-sm-2 sidenav">
-
+                    @if($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="err">{{ $error }}</div>
+                        @endforeach
+                        <br>
+                    @endif
                     <table>
                         <thead>
                         <tr>
@@ -83,6 +117,13 @@
                         </tbody>
 
                     </table>
+                        <br><br>
+                        @if($success = \Illuminate\Support\Facades\Session::get('sub_add'))
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                <strong>Success!</strong> {{ $success }}
+                            </div>
+                        @endif
                 </div>
 
 @stop

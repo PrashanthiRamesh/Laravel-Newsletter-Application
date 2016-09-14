@@ -97,23 +97,23 @@ class SubscribersController extends Controller
         //TODO: check ajax requests
         $validation = Validator::make(Input::all(), array(
                 //email field should be required, should be in an email//format, and should be unique
+                'name'=> 'required',
                 'email' => 'required|email|unique:subscribers,email'
             )
         );
 
         if($validation->fails()) {
 
-            return Redirect::back()->withErrors($validation)->withInput();
-
-
+            return Redirect::to('/subscribe')
+                ->withErrors($validation)// send back all errors to the login form
+                ->withInput(Input::all());
         } else {
 
             Subscribers::create(array(
                 'email' => Input::get('email'),
                 'name' => Input::get('name')
             ));
-            echo "<script>alert( 'Subscriber Added '); window.location.href='/subscribe';</script>";
-
+            return Redirect::to('subscribers')->with('sub_add','Subscriber Added');
 
         }
 

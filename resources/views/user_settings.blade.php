@@ -53,10 +53,10 @@
     {{ Form::open(array('url' => '/settings/user', 'method'=>'post')) }}
 
     {{ Form::hidden('id', $user->id) }}
-
+    {{ Form::label('Name') }}<br><br>
     {{ Form::text('name', $user->name, array('placeholder'=>'Type user name here'))}}
     <br><br>
-
+    {{ Form::label('Email') }}<br><br>
     {{ Form::text('email', $user->email, array('placeholder'=>'Type user email here'))}}
     <br><br>
 

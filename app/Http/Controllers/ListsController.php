@@ -28,12 +28,13 @@ class ListsController extends Controller
        return View::make('lists')->with('lists',$lists);
    }
 
-   public function create(){
-       $list= new Lists();
-       $list->name= Input::get('name');
-       $list->description=Input::get('desc');
+   public function create()
+   {
+       $list = new Lists();
+       $list->name = Input::get('name');
+       $list->description = Input::get('desc');
        $list->save();
-       return Redirect::to('lists');
+       return Redirect::to('lists')->with('success', 'List Created');
    }
 
    public function newlist(){
@@ -55,13 +56,13 @@ class ListsController extends Controller
        $list->name = Input::get('name');
        $list->description = Input::get('desc');
        $list->save();
-       return Redirect::to('lists');
+       return Redirect::back()->with('message','List Edited');
    }
 
    public function delete_show($id){
        $list = Lists::find($id);
        $list->delete();
        Subscribtions::where('list_id', $id)->delete();
-       return Redirect::to('lists');
+       return Redirect::back()->with('message','List Deleted');
    }
 }

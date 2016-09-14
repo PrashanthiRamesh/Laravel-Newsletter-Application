@@ -44,17 +44,13 @@ class NewslettersController extends Controller
             'designation'=> 'required'
         );
 
-// run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
 
-// if the validator fails, redirect back to the form
         if ($validator->fails()) {
             return Redirect::to('/sender/add')
                 ->withErrors($validator)// send back all errors to the login form
                 ->withInput(Input::all()); // send back the input (not the password) so that we can repopulate the form
         } else {
-
-
             $sender = array(
                 'name'=> Input::get('name'),
                 'email' => Input::get('email'),
@@ -63,8 +59,7 @@ class NewslettersController extends Controller
             );
 
             Senders::create($sender);
-            echo "<script>alert('Sender added successfully'); window.location.href='/sender/add';</script>";
-
+            return Redirect::to('sender/add')->with('message', 'New Sender Added');
 
         }
     }
@@ -88,8 +83,8 @@ class NewslettersController extends Controller
             }
             $sender->save();
         }
+        return Redirect::to('sender/change')->with('message', 'Sender Changed');
 
-        echo "<script>alert('Sender Changed'); window.location.href='/sender/change';</script>";
 
     }
 
@@ -106,14 +101,14 @@ class NewslettersController extends Controller
         $newsletter->body = Input::get('body');
         $newsletter->template_id=1;
         $newsletter->save();
-        return Redirect::to('newsletters');
+        return Redirect::back()->with('message_edit','Newsletter Edited');
     }
 
     public function delete($id){
         $newsletter = Newsletters::find($id);
         $newsletter->delete();
 
-        return Redirect::to('newsletters');
+        return Redirect::back()->with('message_delete','Newsletter Deleted');
     }
 
     public function send($id){
@@ -126,7 +121,7 @@ class NewslettersController extends Controller
        $lists=Input::get('list');
         $newsletter_id=Input::get('newsletter_id');
        if(empty($lists)){
-            echo "<script>alert('No lists were selected.'); window.location.href='/newsletters';</script>";
+           return Redirect::back()->with('message_list', 'No Lists Seleted');
         }else{
 
                 //save all the subscribtions with list_id=$list
@@ -148,7 +143,7 @@ class NewslettersController extends Controller
            }
 
        }
-        echo "<script>alert('Newsletter sent successfully'); window.location.href='/newsletters';</script>";
+        return Redirect::back()->with('message_sent', 'Newsletter Sent');
 
 
     }
@@ -160,16 +155,54 @@ class NewslettersController extends Controller
     }
 
     public function create(){
-        $newsletter= new Newsletters();
-        $newsletter->subject= Input::get('subject');
-        $newsletter->body=Input::get('body');
-        $newsletter->template_id=1;
-        $newsletter->save();
-        return Redirect::to('newsletters');
+        $rules = array(
+            'subject' => 'required', // make sure the email is an actual email
+            'body' => 'required',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return Redirect::to('/newsletter/new')
+                ->withErrors($validator)// send back all errors to the login form
+                ->withInput(Input::all()); // send back the input (not the password) so that we can repopulate the form
+        } else {
+            $newsletter = array(
+                'subject'=> Input::get('subject'),
+                'body' => Input::get('body'),
+                'template_id' => 1,
+            );
+
+            Newsletters::create($newsletter);
+            return Redirect::to('newsletters')->with('newsletter_add', 'New Newsletter Added');
+
+        }
     }
 
     public function new_newsletter(){
         return View::make('newsletter_new');
+    }
+
+    public function sender_edit($id){
+        $sender=Senders::find($id);
+        return View::make('sender_edit')->with('sender',$sender);
+    }
+
+    public function senderEdit(){
+        $id = Input::get('id');
+        $sender = Senders::find($id);
+        $sender->name = Input::get('name');
+        $sender->email = Input::get('email');
+        $sender->designation=Input::get('desig');
+        $sender->save();
+        return Redirect::back()->with('message','Sender Edited');
+    }
+
+
+    public function sender_delete($id){
+        $sender = Senders::find($id);
+        $sender->delete();
+        return Redirect::back()->with('message_del','Sender Deleted');
     }
 
 }

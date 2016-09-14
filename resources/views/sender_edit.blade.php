@@ -1,11 +1,12 @@
-@extends('layouts.dashboard')
-@section('page_heading','Add Sender')
-
+@extends ('layouts.dashboard')
+@section('page_heading','Edit Sender')
 @section('section')
+
     <style>
-        input{
-            font-size:18px
+        input {
+            font-size: 18px
         }
+
         input[type=text] {
             width: 80%;
             margin: 0 30% 0 4%;
@@ -16,6 +17,7 @@
         input[type=text]:focus {
             width: 150%;
         }
+
         form input[type="submit"] {
             margin: 0 30% 0 4%;
             background-color: #ce8483;
@@ -26,22 +28,29 @@
             cursor: pointer;
 
         }
+
         form input[type="submit"]:hover {
             background-color: #ff6666;
 
         }
-        form label{
+
+        form label {
             margin: 0 30% 0 4%;
-            font-size:18px
+            font-size: 18px
 
         }
 
-        form input[type="checkbox"]{
+        form input[type="checkbox"] {
+            margin: 0 0% 0 4%;
+            font-size: 18px
+        }
+
+        form input[type="radio"] {
             margin: 0 0 0 4%;
-            font-size:18px
+            font-size: 18px
         }
 
-        .alert{
+        .alert {
             padding: 20px;
             background-color: #2ab27b; /* Red */
             color: white;
@@ -64,34 +73,23 @@
             cursor: pointer;
         }
 
-        .err{
-            padding: 10px ;
-            background-color: #f0ad4e; /* Red */
-            color: white;
-            margin: 0 30% 0 4%;
-            font-size: 20px;
-        }
-
     </style>
     <div class="col-sm-8 text-left">
-        @if($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="err">{{ $error }}</div>
-            @endforeach
-            <br>
-        @endif
 
+        {{ Form::open(array('url' => 'sender/edit', 'method'=>'post')) }}
 
-        {{ Form::open(array('url' => '/sender/add', 'method'=>'post')) }}
-
-
-        {{ Form::text('name', '', array('placeholder'=>'Type Name here'))}}
+        {{ Form::hidden('id', $sender->id) }}
+        {{ Form::label('Sender Name') }}<br><br>
+        {{ Form::text('name', $sender->name, array('placeholder'=>'Type Sender Name here'))}}
         <br><br>
-        {{ Form::text('email', '', array('placeholder'=>'Type a verified email here'))}}
+        {{ Form::label('Sender Email') }}<br><br>
+        {{ Form::text('email', $sender->email, array('placeholder'=>'Type Sender Email here'))}}
         <br><br>
-        {{ Form::text('designation', '', array('placeholder'=>'Type the designation of the sender here'))}}
+        {{ Form::label('Sender Designation') }}<br><br>
+        {{ Form::text('desig', $sender->designation, array('placeholder'=>'Type Sender Designation here'))}}
         <br><br>
-        {{Form::submit('Add Sender')}}
+
+        {{Form::submit('Edit Sender')}}
         {{ Form::close() }}
         <br><br>
 
@@ -102,6 +100,4 @@
             </div>
         @endif
     </div>
-
-
 @stop

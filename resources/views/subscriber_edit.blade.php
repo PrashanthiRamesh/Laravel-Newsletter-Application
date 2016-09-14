@@ -49,10 +49,10 @@
         {{ Form::open(array('url' => '/subscriber/edit/{id}', 'method'=>'post')) }}
 
         {{ Form::hidden('id', $subscriber->id) }}
-
+        {{ Form::label('Subscriber\'s Name' ) }}<br><br>
         {{ Form::text('name', $subscriber->name, array('placeholder'=>'Type subscriber\'s Name here'))}}
         <br><br>
-
+        {{ Form::label('Subscriber\' Email') }}<br><br>
         {{ Form::text('email', $subscriber->email, array('placeholder'=>'Type subscriber\'s Email here'))}}
         <br><br>
         {{ Form::label('lists', 'Lists:')}}<br><br>

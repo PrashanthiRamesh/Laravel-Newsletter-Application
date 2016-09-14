@@ -70,12 +70,9 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
 
 
-
     /*
-     * Newsletters
+     * Senders
      */
-
-    Route::get('/newsletters', 'NewslettersController@index');
 
     Route::get('sender/add', 'NewslettersController@add_sender');
 
@@ -84,6 +81,27 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sender/change', 'NewslettersController@change_sender');
 
     Route::post('sender/change', 'NewslettersController@changesender');
+
+    Route::get('sender/edit/{id}',[
+        'uses' => 'NewslettersController@sender_edit',
+        'as'   => 'sender_edit'
+    ]);
+
+    Route::post('sender/edit',[
+        'uses' => 'NewslettersController@senderEdit',
+        'as'   => 'sender_edit_post'
+    ]);
+
+    Route::get('/sender/delete/{id}',[
+        'uses' => 'NewslettersController@sender_delete',
+        'as'   => 'sender_delete'
+    ]);
+
+    /*
+     * Newsletters
+     */
+
+    Route::get('/newsletters', 'NewslettersController@index');
 
     Route::get('newsletter/new', 'NewslettersController@new_newsletter');
     Route::post('newsletter/new', 'NewslettersController@create');
