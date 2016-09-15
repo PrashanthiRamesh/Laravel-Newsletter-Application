@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNewsletter;
 use App\Lists;
+use App\MailQueueData;
 use App\Newsletters;
 use App\Senders;
 use App\Subscribers;
@@ -11,6 +13,7 @@ use App\User;
 
 
 use App\Http\Requests;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Input;
@@ -21,6 +24,13 @@ use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
+
+    protected $from_email;
+    protected $from_name;
+    protected $to_email;
+    protected $to_name;
+    protected $subject;
+
 
     public function __construct()
     {
@@ -102,4 +112,46 @@ class HomeController extends Controller
         );
         return View::make('home')->with('count',$count);
     }
+
+    // Fetch 100 jobs from queue and send mail
+
+    public function sendMail(Mailer $mailer){
+
+        $subscribers=MailQueueData::all()->take(100);
+
+        if (!empty($subscribers->toArray())){
+            foreach ($subscribers as $subscriber) {
+
+                $this->from_email=$subscriber->from_email;
+                $this->from_name=$subscriber->company;
+                $this->to_email=$subscriber->to_email;
+                $this->to_name=$subscriber->to_name;
+                $this->subject=$subscriber->subject;
+//            //Create the Transport
+//            $transport = \Swift_AWSTransport::newInstance( env('MAIL_USERNAME'), env('MAIL_PASSWORD') );
+//            $message = \Swift_Message::newInstance();
+//            $message->setTo(array(
+//                $subscriber->to_email => $subscriber->to_name
+//            ));
+//            $message->setSubject($subscriber->subject);
+//            $message->setBody($subscriber->content);
+//            $message->setFrom($subscriber->from_email, $subscriber->company);
+//            $mailer = \Swift_Mailer::newInstance($transport);
+//            $mailer->send($message);
+//            $subscriber->delete();
+                $mailer->send('newsletter_template', ['content' => $subscriber->content, 'name'=>$subscriber->from_name], function($message) {
+
+                    $message->from($this->from_email, $this->from_name);
+                    $message->to($this->to_email, $this->to_name);
+                    $message->subject($this->subject);
+                });
+                $subscriber->delete();
+            }
+        }else{
+            return response()->json('No Newsletters');
+        }
+
+        return response()->json('Newsletters Sent');
+    }
+
 }

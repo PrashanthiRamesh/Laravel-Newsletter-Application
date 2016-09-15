@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f63a17ab00cc82a9f0a507fdfdd275b",
-    "content-hash": "d1e85722c85fb1c9a1124562d0888823",
+    "hash": "522648123648607f9c30208ff7732bbc",
+    "content-hash": "ca5d2b2b26b741a8d62bfcbef793112d",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -305,6 +305,49 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "jmhobbs/swiftmailer-transport-aws-ses",
+            "version": "0.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jmhobbs/Swiftmailer-Transport--AWS-SES.git",
+                "reference": "10110a450225a19b5095e7313a5c7c4b43bba3b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jmhobbs/Swiftmailer-Transport--AWS-SES/zipball/10110a450225a19b5095e7313a5c7c4b43bba3b6",
+                "reference": "10110a450225a19b5095e7313a5c7c4b43bba3b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0",
+                "swiftmailer/swiftmailer": ">=4.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Hobbs",
+                    "email": "john@velvetcache.org"
+                }
+            ],
+            "description": "Add AWS SES support to Swiftmailer",
+            "keywords": [
+                "aws",
+                "email",
+                "ses",
+                "swiftmailer"
+            ],
+            "time": "2014-11-12 23:51:28"
         },
         {
             "name": "laravel/framework",

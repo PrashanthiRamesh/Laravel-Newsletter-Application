@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
+use App\MailQueueData;
 use App\Newsletters;
 use App\Senders;
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailer;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,6 +19,7 @@ class SendNewsletter implements ShouldQueue
     protected $from_id;
     protected $from_name;
     protected $from_designation;
+
     /**
      * Create a new job instance.
      *
@@ -29,26 +30,31 @@ class SendNewsletter implements ShouldQueue
         $this->emailAddress = $emailAddress;
         $this->name = $name;
         $this->newsletter_id = $newsletter_id;
-        $from=Senders::where('selected',true)->first()->toArray();
-        $this->from_id=$from['email'];
-        $this->from_name=$from['name'];
-        $this->from_designation=$from['designation'];
+        $from = Senders::where('selected', true)->first()->toArray();
+        $this->from_id = $from['email'];
+        $this->from_name = $from['name'];
+        $this->from_designation = $from['designation'];
     }
+
 
     /**
      * Execute the job.
      *
      * @return void
      */
-    public function handle(Mailer $mailer)
+    public function handle()
     {
-        $newsletter=Newsletters::find($this->newsletter_id);
-        $mailer->send('newsletter_template', ['content' => $newsletter->body, 'name'=> $this->name], function($message) {
-            $newsletter=Newsletters::find($this->newsletter_id);
-            $message->from($this->from_id, 'Flycart');
-            $message->to($this->emailAddress, $this->name);
-            //Add a subject
-            $message->subject($newsletter->subject);
-        });
+        $newsletter = Newsletters::find($this->newsletter_id);
+        $data = array(
+            'company' => 'Flycart',
+            'content' => $newsletter->body,
+            'to_name' => $this->name,
+            'from_email' => $this->from_id,
+            'from_name' => $this->from_name,
+            'to_email' => $this->emailAddress,
+            'subject' => $newsletter->subject,
+            'from_designation' => $this->from_designation
+        );
+        MailQueueData::create($data);
     }
 }

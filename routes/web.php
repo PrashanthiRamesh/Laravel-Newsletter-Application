@@ -28,20 +28,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('settings/user', 'UserController@saveUser');
 
-    Route::get('/edit/user',[
+    Route::get('edit/user/{id}', [
         'uses' => 'UserController@forgotPassword',
-        'as'   => 'forgot_password'
+        'as' => 'forgot_password'
     ]);
 
-    Route::get('password/change/{id}',[
-        'uses' => 'UserController@changePassword',
-        'as'   => 'change_password'
-    ]);
-
-    Route::post('password/change/{id}',[
-        'uses' => 'UserController@change',
-        'as'   => 'change_password'
-    ]);
 
     Route::get('settings/queue', 'UserController@getqueue');
 
@@ -54,14 +45,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('subscribe/submit', 'SubscribersController@submit');
 
-    Route::get('/subscriber/edit/{id}',[
+    Route::get('/subscriber/edit/{id}', [
         'uses' => 'SubscribersController@edit_show',
-        'as'   => 'subscriber_edit'
+        'as' => 'subscriber_edit'
     ]);
 
-    Route::post('/subscriber/edit/{id}',[
+    Route::post('/subscriber/edit/{id}', [
         'uses' => 'SubscribersController@edit',
-        'as'   => 'subscriber_edit'
+        'as' => 'subscriber_edit'
     ]);
 
     Route::get('subscriber/delete/{id}', [
@@ -82,19 +73,19 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('sender/change', 'NewslettersController@changesender');
 
-    Route::get('sender/edit/{id}',[
+    Route::get('sender/edit/{id}', [
         'uses' => 'NewslettersController@sender_edit',
-        'as'   => 'sender_edit'
+        'as' => 'sender_edit'
     ]);
 
-    Route::post('sender/edit',[
+    Route::post('sender/edit', [
         'uses' => 'NewslettersController@senderEdit',
-        'as'   => 'sender_edit_post'
+        'as' => 'sender_edit_post'
     ]);
 
-    Route::get('/sender/delete/{id}',[
+    Route::get('/sender/delete/{id}', [
         'uses' => 'NewslettersController@sender_delete',
-        'as'   => 'sender_delete'
+        'as' => 'sender_delete'
     ]);
 
     /*
@@ -106,34 +97,34 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('newsletter/new', 'NewslettersController@new_newsletter');
     Route::post('newsletter/new', 'NewslettersController@create');
 
-    Route::get('/newsletter/edit/{id}',[
+    Route::get('/newsletter/edit/{id}', [
         'uses' => 'NewslettersController@edit_show',
-        'as'   => 'newsletter_edit'
+        'as' => 'newsletter_edit'
     ]);
 
-    Route::post('/newsletter/edit/{id}',[
+    Route::post('/newsletter/edit/{id}', [
         'uses' => 'NewslettersController@edit',
-        'as'   => 'newsletter_edit'
+        'as' => 'newsletter_edit'
     ]);
 
-    Route::get('/newsletter/send/{id}',[
+    Route::get('/newsletter/send/{id}', [
         'uses' => 'NewslettersController@send',
-        'as'   => 'newsletter_send'
+        'as' => 'newsletter_send'
     ]);
 
-    Route::post('/newsletter/send',[
+    Route::post('/newsletter/send', [
         'uses' => 'NewslettersController@send_mail',
-        'as'   => 'newsletter_sendmail'
+        'as' => 'newsletter_sendmail'
     ]);
 
-    Route::get('/newsletter/preview/{id}',[
+    Route::get('/newsletter/preview/{id}', [
         'uses' => 'NewslettersController@preview',
-        'as'   => 'newsletter_preview'
+        'as' => 'newsletter_preview'
     ]);
 
-    Route::get('/newsletter/delete/{id}',[
+    Route::get('/newsletter/delete/{id}', [
         'uses' => 'NewslettersController@delete',
-        'as'   => 'newsletter_delete'
+        'as' => 'newsletter_delete'
     ]);
 
     /*
@@ -146,14 +137,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('list/new', 'ListsController@create');
 
-    Route::get('/list/edit/{id}',[
+    Route::get('/list/edit/{id}', [
         'uses' => 'ListsController@edit_show',
-        'as'   => 'lists_edit'
+        'as' => 'lists_edit'
     ]);
 
-    Route::post('/list/edit/{id}',[
+    Route::post('/list/edit/{id}', [
         'uses' => 'ListsController@edit',
-        'as'   => 'list_edit'
+        'as' => 'list_edit'
     ]);
 
     Route::get('list/delete/{id}', [
@@ -163,7 +154,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 //test
 
-    Route::get('test','TestController@index');
+    Route::get('test', 'TestController@index');
 
 
 });
@@ -180,3 +171,21 @@ Route::post('login', array('uses' => 'HomeController@doLogin'));
 
 Route::get('logout', array('uses' => 'HomeController@doLogout'));
 
+/*
+ *  Fetch from queue and send mail
+ */
+Route::get('sendmail', 'HomeController@sendMail');
+
+/*
+ * Password Change
+ */
+
+Route::get('password/change/{id}', [
+    'uses' => 'UserController@changePassword',
+    'as' => 'change_password'
+]);
+
+Route::post('password/change/{id}', [
+    'uses' => 'UserController@change',
+    'as' => 'change_password'
+]);
