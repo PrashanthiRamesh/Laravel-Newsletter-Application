@@ -41,10 +41,7 @@ class HomeController extends Controller
 
     public function showLogin()
     {
-        \Artisan::call('migrate:install');
-        \Artisan::call('migrate', [
-            '--path' => "database/migrations"
-        ]);
+
         // show the form
         return View::make('login');
     }

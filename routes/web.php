@@ -156,16 +156,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('test', 'TestController@index');
 
-
+    Route::get('/', function (){
+        return 'yay';
+    });
 });
 
 
 /*
  * Authentication
  */
-Route::get('/', function (){
-    return 'yay';
-});
+
 
 Route::get('login', array('uses' => 'HomeController@showLogin'));
 

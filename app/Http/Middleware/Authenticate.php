@@ -20,7 +20,10 @@ class Authenticate
     {
 
         if(!Auth::check()){
-
+            \Artisan::call('migrate:install');
+            \Artisan::call('migrate', [
+                '--path' => "database/migrations"
+            ]);
             return Redirect::to('login');
         }else{
 
