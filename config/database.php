@@ -54,11 +54,11 @@ return [
 
         'mysql' => array(
             'driver'    => 'mysql',
-            'host'      => $_SERVER['RDS_HOSTNAME'],
-			'port'	=> $_SERVER['RDS_PORT'],
-			'database'  => $_SERVER['RDS_DB_NAME'],
-			'username'  => $_SERVER['RDS_USERNAME'],
-			'password'  => $_SERVER['RDS_PASSWORD'],
+            'host'      => 'laraveldb.cj3u4t4jm1eo.us-east-1.rds.amazonaws.com',
+			'port'	=> '3306',
+			'database'  => 'laraveldb',
+			'username'  => 'db_admin',
+			'password'  => 'password',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
