@@ -54,10 +54,10 @@ return [
 
         'mysql' => array(
             'driver'    => 'mysql',
-            'host'      => 'laraveldb.cj3u4t4jm1eo.us-east-1.rds.amazonaws.com',
+            'host'      => 'aawxkzy8ag6a0z.cj3u4t4jm1eo.us-east-1.rds.amazonaws.com',
 			'port'	=> '3306',
 			'database'  => 'laraveldb',
-			'username'  => 'db_admin',
+			'username'  => 'admin',
 			'password'  => 'password',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
