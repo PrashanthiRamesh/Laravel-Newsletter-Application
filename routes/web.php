@@ -163,7 +163,9 @@ Route::group(['middleware' => ['auth']], function () {
 /*
  * Authentication
  */
-
+Route::get('/', function (){
+    return 'yay';
+});
 
 Route::get('login', array('uses' => 'HomeController@showLogin'));
 
