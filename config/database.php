@@ -54,11 +54,11 @@ return [
 
         'mysql' => array(
             'driver'    => 'mysql',
-            'host'      => 'aawxkzy8ag6a0z.cj3u4t4jm1eo.us-east-1.rds.amazonaws.com',
+            'host'      => env('DB_HOST', 'localhost'),
 			'port'	=> '3306',
-			'database'  => 'laraveldb',
-			'username'  => 'admin',
-			'password'  => 'password',
+			'database'  => env('DB_DATABASE', 'forge'),
+			'username'  => env('DB_USERNAME', 'forge'),
+			'password'  => env('DB_PASSWORD', ''),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
