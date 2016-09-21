@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent;
 
 Class MailQueueData extends Eloquent\Model{
+
     protected $table = 'mail_queue_data';
     protected $fillable= array(
         'company',
