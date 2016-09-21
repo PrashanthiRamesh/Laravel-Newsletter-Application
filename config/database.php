@@ -54,11 +54,11 @@ return [
 
         'mysql' => array(
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
+            'host'      => 'laraveldb.cj3u4t4jm1eo.us-east-1.rds.amazonaws.com',
 			'port'	=> '3306',
-			'database'  => env('DB_DATABASE', 'forge'),
-			'username'  => env('DB_USERNAME', 'forge'),
-			'password'  => env('DB_PASSWORD', ''),
+			'database'  => 'laravelappdb',
+			'username'  => 'db_admin',
+			'password'  => 'password',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
