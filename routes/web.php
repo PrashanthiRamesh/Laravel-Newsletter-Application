@@ -12,12 +12,25 @@
 */
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], function () {
+
+    /*
+     * test
+     */
+
+    Route::get('/', function () {
+        if(\DB::connection()->getDatabaseName())
+        {
+            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+        }
+        dd(\DB::connection('mysql_tenant'));
+    });
+
 
     /*
  * Home Page
  */
-    Route::get('home', 'HomeController@get');
+
     Route::get('home', 'HomeController@get');
 
     /*
@@ -191,3 +204,23 @@ Route::post('password/change/{id}', [
     'uses' => 'UserController@change',
     'as' => 'change_password'
 ]);
+
+
+/**
+ * Register User/Tenant
+ */
+
+
+Route::group(['middleware' => 'main'],function (){
+
+    Route::get('register', function () {
+        if(\DB::connection()->getDatabaseName())
+        {
+            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+        }
+        return \Illuminate\Support\Facades\View::make('register');
+    });
+
+    Route::post('register', 'UserController@register');
+
+});

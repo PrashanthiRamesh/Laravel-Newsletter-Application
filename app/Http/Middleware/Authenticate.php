@@ -2,8 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class Authenticate
@@ -19,13 +23,32 @@ class Authenticate
     public function handle($request, Closure $next)
     {
 
-        if(!Auth::check()){
-            return Redirect::to('login');
+//        if(!Auth::check()){
+//            return Redirect::to('login');
+//        }else{
+//
+//            return $next($request);
+//        }
+
+        $pieces = explode('.', $request->getHost());
+
+        $user = User::where('username', '=', $pieces[0])->first();
+
+        if ($user === null) {
+            echo 'User not found';
         }else{
 
-            return $next($request);
+            Config::set('database.connections.mysql_tenant.database', $user->username);
+            Config::set('database.default', 'mysql_tenant');
+            DB::reconnect('mysql_tenant');
+
+            Artisan::call('migrate', [
+                '--path' => "database/migrations/tenant"
+            ]);
         }
 
+
+        return $next($request);
 
     }
 }

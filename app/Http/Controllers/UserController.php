@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Jobs\ForgotPasswordEmail;
 use App\User;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +23,45 @@ class UserController extends Controller
 
     }
 
+    public function register(){
+        //validate the tenant registration info
+        $rules = array(
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users',
+            'password'=> 'required|alphaNum|min:6',
+            'confirm'=>'required|alphaNum|min:6|same:password'
+        );
 
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+
+            return Redirect::to('/register')
+                ->withErrors($validator)// send back all errors to the login form
+                ->withInput(Input::all());
+            // send back the input (not the password) so that we can repopulate the form
+
+        } else {
+
+            $tenant = array(
+                'name'=> Input::get('name'),
+                'email' => Input::get('email'),
+                'password'=> Hash::make(Input::get('password')),
+                'username' => Input::get('username'),
+
+            );
+
+            //if all ok, then create a db in the specified username & migrate
+            User::create($tenant);
+            DB::statement('create database ' . Input::get('username'));
+            Artisan::call('migrate', [
+                '--path' => "database/migrations/tenant"
+            ]);
+            return Redirect::to('/register')->with('message', 'New User Registered and Database Created');
+
+        }
+    }
     public function get(){
         $user_id=Auth::user()->id;
         $user= User::where('id', $user_id)->first();

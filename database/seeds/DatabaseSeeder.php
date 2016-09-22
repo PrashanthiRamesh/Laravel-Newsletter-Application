@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         Illuminate\Database\Eloquent\Model::unguard();
 
-     //   $this->call('UserTableSeeder');
+       $this->call('UserTableSeeder');
      //     $this->call('ListsTableSeeder');
        // $this->call('SubscribtionsTableSeeder');
       //  $this->call('SubscribersTableSeeder');
       //  $this->call('NewslettersTableSeeder');
-        $this->call('SendersTableSeeder');
+      //  $this->call('SendersTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -28,9 +28,9 @@ class UserTableSeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::table('users')->delete();
         \App\User::create(array(
-            'name'     => 'Sansa Stark',
-            'username' => 'sansa',
-            'email'    => 'sansa@gmail.com',
+            'name'     => 'Prashanthi Ramesh',
+            'username' => 'prash4',
+            'email'    => 'rvprashanthi@gmail.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
         ));
     }
