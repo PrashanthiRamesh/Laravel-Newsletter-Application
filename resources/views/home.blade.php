@@ -227,11 +227,6 @@
                      
 
                             <div class="list-group">
-                                <a href="/settings/user" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> Users
-                                    <span class="pull-right text-muted small"><em>{{ $count['users'] }}</em>
-                                    </span>
-                                </a>
                                 <a href="/subscribers" class="list-group-item">
                                     <i class="fa fa-twitter fa-fw"></i> Subscribers
                                     <span class="pull-right text-muted small"><em>{{ $count['subscribers'] }}</em>

@@ -104,7 +104,6 @@ class HomeController extends Controller
 
     public function get(){
         $count=array(
-            'users' => User::count(),
             'subscribers' => Subscribers::count(),
             'subscribtions' => Subscribtions::count(),
             'lists' => Lists::count(),

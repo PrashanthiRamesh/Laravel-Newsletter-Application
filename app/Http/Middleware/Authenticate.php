@@ -35,18 +35,16 @@ class Authenticate
         $user = User::where('username', '=', $pieces[0])->first();
 
         if ($user === null) {
-            echo 'User not found';
+            return Redirect::to('register');
         }else{
 
             Config::set('database.connections.mysql_tenant.database', $user->username);
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
-
             Artisan::call('migrate', [
                 '--path' => "database/migrations/tenant"
             ]);
         }
-
 
         return $next($request);
 

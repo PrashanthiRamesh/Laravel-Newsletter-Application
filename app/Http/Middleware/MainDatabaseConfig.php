@@ -27,8 +27,6 @@ class MainDatabaseConfig
 
         if(!\Schema::hasTable('migrations')) {
             Artisan::call('migrate:install');
-
-
             Artisan::call('migrate', [
                 '--path' => "database/migrations/main"
             ]);

@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url ('home') }}">Prango Newsletter</a>
+                <a class="navbar-brand" href="{{ url ('/') }}">Newsletters</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -247,8 +247,8 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li {{ (Request::is('home') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <li {{ (Request::is('') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('/') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Subscribers<span class="fa arrow"></span></a>

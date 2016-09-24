@@ -18,20 +18,20 @@ Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], funct
      * test
      */
 
-    Route::get('/', function () {
-        if(\DB::connection()->getDatabaseName())
-        {
-            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
-        }
-        dd(\DB::connection('mysql_tenant'));
-    });
+//    Route::get('/', function () {
+//        if(\DB::connection()->getDatabaseName())
+//        {
+//            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+//        }
+//
+//    });
 
 
     /*
      * Home Page
      */
 
-    Route::get('home', 'HomeController@get');
+    Route::get('/', 'HomeController@get');
 
     /*
      * Settings
