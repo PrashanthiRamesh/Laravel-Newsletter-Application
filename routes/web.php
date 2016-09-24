@@ -28,8 +28,8 @@ Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], funct
 
 
     /*
- * Home Page
- */
+     * Home Page
+     */
 
     Route::get('home', 'HomeController@get');
 
@@ -169,9 +169,7 @@ Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], funct
 
     Route::get('test', 'TestController@index');
 
-    Route::get('/', function (){
-        return 'yay';
-    });
+
 });
 
 

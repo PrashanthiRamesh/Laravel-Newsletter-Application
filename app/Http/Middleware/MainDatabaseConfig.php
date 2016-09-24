@@ -16,6 +16,7 @@ class MainDatabaseConfig
      * @param  \Closure  $next
      * @return mixed
      */
+
     public function handle($request, Closure $next)
     {
         \Config::set('database.connections.mysql.host', 'localhost');
