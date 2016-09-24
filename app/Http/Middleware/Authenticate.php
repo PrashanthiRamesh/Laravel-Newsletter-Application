@@ -33,7 +33,7 @@ class Authenticate
         $pieces = explode('.', $request->getHost());
 
         $user = User::where('username', '=', $pieces[0])->first();
-dd($user);
+
         if ($user === null) {
             return Redirect::to('register');
         }else{
@@ -41,9 +41,13 @@ dd($user);
             Config::set('database.connections.mysql_tenant.database', $user->username);
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
-            Artisan::call('migrate', [
-                '--path' => "database/migrations/tenant"
-            ]);
+            if(!\Schema::hasTable('migrations')) {
+                Artisan::call('migrate:install');
+                Artisan::call('migrate', [
+                    '--path' => "database/migrations/tenant"
+                ]);
+
+            }
         }
 
         return $next($request);

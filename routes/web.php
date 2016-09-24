@@ -23,7 +23,7 @@ Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbea
 //        {
 //            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
 //        }
-        return $subdomain;
+       dd($subdomain);
 
     });
 
