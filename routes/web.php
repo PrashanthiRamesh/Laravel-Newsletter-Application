@@ -202,12 +202,12 @@ Route::post('password/change/{id}', [
     'uses' => 'UserController@change',
     'as' => 'change_password'
 ]);
-Route::get('blah', function () {
+Route::get('register', function () {
     if(\DB::connection()->getDatabaseName())
     {
         echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
     }
-    return 'blah';
+    return \Illuminate\Support\Facades\View::make('register');
 });
 
 /**
@@ -217,13 +217,13 @@ Route::get('blah', function () {
 
 Route::group(['middleware' => 'main'],function (){
 
-    Route::get('register', function () {
-        if(\DB::connection()->getDatabaseName())
-        {
-            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
-        }
-        return \Illuminate\Support\Facades\View::make('register');
-    });
+//    Route::get('register', function () {
+//        if(\DB::connection()->getDatabaseName())
+//        {
+//            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+//        }
+//        return \Illuminate\Support\Facades\View::make('register');
+//    });
 
     Route::post('register', 'UserController@register');
 
