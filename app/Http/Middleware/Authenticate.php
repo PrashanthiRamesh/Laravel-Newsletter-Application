@@ -43,11 +43,14 @@ class Authenticate
             DB::reconnect('mysql_tenant');
 
 
-            Artisan::call('migrate', [
-                '--path' => "database/migrations/tenant"
-            ]);
+            if(!\Schema::hasTable('migrations')) {
+                Artisan::call('migrate:install');
+                Artisan::call('migrate', [
+                    '--path' => "database/migrations/tenant"
+                ]);
 
-           dd('yay');
+            }
+
         }
 
         return $next($request);

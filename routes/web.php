@@ -168,7 +168,7 @@ Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbea
 
 //test
 
-    Route::get('test', 'TestController@index');
+    //Route::get('test', 'TestController@index');
 
 
 });
