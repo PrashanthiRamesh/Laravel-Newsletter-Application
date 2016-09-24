@@ -18,13 +18,13 @@ Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbea
      * test
      */
 
-//    Route::get('/', function () {
-//        if(\DB::connection()->getDatabaseName())
-//        {
-//            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
-//        }
-//
-//    });
+    Route::get('test', function () {
+        if(\DB::connection()->getDatabaseName())
+        {
+            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+        }
+
+    });
 
 
     /*
