@@ -33,7 +33,7 @@ class Authenticate
         $pieces = explode('.', $request->getHost());
 
         $user = User::where('username', '=', $pieces[0])->first();
-
+dd($user);
         if ($user === null) {
             return Redirect::to('register');
         }else{
