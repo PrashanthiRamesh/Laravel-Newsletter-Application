@@ -19,6 +19,7 @@ class MainDatabaseConfig
 
     public function handle($request, Closure $next)
     {
+        dd('yay');
         \Config::set('database.connections.mysql.host', 'localhost');
         \Config::set('database.connections.mysql.database', env('DB_DATABASE'));
         \Config::set('database.connections.mysql.username', 'root');
