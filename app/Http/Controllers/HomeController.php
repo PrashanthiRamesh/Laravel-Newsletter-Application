@@ -74,8 +74,11 @@ class HomeController extends Controller
             if (Auth::attempt($userdata)) {
 
                 // validation successful!
+                $user_id=Auth::user()->id;
+                $user= User::where('id', $user_id)->first();
+                $username=$user->username;
 
-                return Redirect::to('home');
+                die(header('Location: http://'.$username.'.localhost:8000/'));
 
             } else {
 

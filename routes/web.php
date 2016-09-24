@@ -10,22 +10,20 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+/*
+ * test
+ */
 
-
-Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbeanstalk.com','middleware' => ['auth']], function () {
-
-    /*
-     * test
-     */
-
-    Route::get('test', function ($subdomain) {
+Route::get('test', function () {
 //        if(\DB::connection()->getDatabaseName())
 //        {
 //            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
 //        }
-       dd($subdomain);
+//    dd($subdomain);
+    die(header('Location: http://prash4.localhost:8000/'));
+});
 
-    });
+Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], function () {
 
 
     /*
