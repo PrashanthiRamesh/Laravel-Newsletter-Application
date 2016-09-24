@@ -20,12 +20,12 @@ class MainDatabaseConfig
     public function handle($request, Closure $next)
     {
 
-        \Config::set('database.connections.mysql.host', 'localhost');
+        \Config::set('database.connections.mysql.host', env('DB_HOST'));
         \Config::set('database.connections.mysql.database', env('DB_DATABASE'));
-        \Config::set('database.connections.mysql.username', 'root');
-        \Config::set('database.connections.mysql.password', 'password');
+        \Config::set('database.connections.mysql.username', env('DB_USERNAME'));
+        \Config::set('database.connections.mysql.password', env('DB_PASSWORD'));
         \DB::reconnect();
-dd('sadhj');
+
         if(!\Schema::hasTable('migrations')) {
             Artisan::call('migrate:install');
             Artisan::call('migrate', [
