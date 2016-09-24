@@ -43,9 +43,9 @@ class Authenticate
             DB::reconnect('mysql_tenant');
 
 
-                Artisan::call('migrate', [
-                    '--path' => "database/migrations/tenant"
-                ]);
+            Artisan::call('migrate', [
+                '--path' => "database/migrations/tenant"
+            ]);
 
            dd('yay');
         }
