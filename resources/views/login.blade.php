@@ -45,7 +45,7 @@
     </style>
 </head>
 <body>
-
+{!! csrf_field() !!}
 
 {{ Form::open(array('url' => 'login')) }}
 <h2>Login</h2>
@@ -60,7 +60,7 @@
     {{ Form::label('email', 'Email Address') }}<br>
     {{ Form::text('email', \Illuminate\Support\Facades\Input::old('email'), array('placeholder' => 'awesome@awesome.com')) }}
 </p>
-{!! csrf_field() !!}
+
 <p>
     {{ Form::label('password', 'Password') }}<br>
     {{ Form::password('password') }}

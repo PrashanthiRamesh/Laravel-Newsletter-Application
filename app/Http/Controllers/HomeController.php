@@ -41,13 +41,14 @@ class HomeController extends Controller
 
     public function showLogin()
     {
-
         // show the form
         return View::make('login');
     }
 
     public function doLogin()
     {
+
+
         // validate the info, create rules for the inputs
         $rules = array(
             'email' => 'required|email', // make sure the email is an actual email
@@ -74,12 +75,11 @@ class HomeController extends Controller
             if (Auth::attempt($userdata)) {
 
                 // validation successful!
-                $user_id=Auth::user()->id;
-                $user= User::where('id', $user_id)->first();
-                $username=$user->username;
-
-                die(header('Location: http://'.$username.'.localhost:8000/'));
-
+                $user_id = Auth::user()->id;
+                $user = User::where('id', $user_id)->first();
+                $username = $user->username;
+                dd($username);
+                return redirect()->route('sub', ['subdomain' => $username]);
             } else {
 
                 // validation not successful, send back to form
@@ -105,31 +105,33 @@ class HomeController extends Controller
 
     //Dashboard
 
-    public function get(){
-        $count=array(
+    public function get()
+    {
+        $count = array(
             'subscribers' => Subscribers::count(),
             'subscribtions' => Subscribtions::count(),
             'lists' => Lists::count(),
             'newsletters' => Newsletters::count(),
-            'senders'=> Senders::count()
+            'senders' => Senders::count()
         );
-        return View::make('home')->with('count',$count);
+        return View::make('home')->with('count', $count);
     }
 
     // Fetch 100 jobs from queue and send mail
 
-    public function sendMail(Mailer $mailer){
+    public function sendMail(Mailer $mailer)
+    {
 
-        $subscribers=MailQueueData::all()->take(100);
+        $subscribers = MailQueueData::all()->take(100);
 
-        if (!empty($subscribers->toArray())){
+        if (!empty($subscribers->toArray())) {
             foreach ($subscribers as $subscriber) {
 
-                $this->from_email=$subscriber->from_email;
-                $this->from_name=$subscriber->company;
-                $this->to_email=$subscriber->to_email;
-                $this->to_name=$subscriber->to_name;
-                $this->subject=$subscriber->subject;
+                $this->from_email = $subscriber->from_email;
+                $this->from_name = $subscriber->company;
+                $this->to_email = $subscriber->to_email;
+                $this->to_name = $subscriber->to_name;
+                $this->subject = $subscriber->subject;
 //            //Create the Transport
 //            $transport = \Swift_AWSTransport::newInstance( env('MAIL_USERNAME'), env('MAIL_PASSWORD') );
 //            $message = \Swift_Message::newInstance();
@@ -142,7 +144,7 @@ class HomeController extends Controller
 //            $mailer = \Swift_Mailer::newInstance($transport);
 //            $mailer->send($message);
 //            $subscriber->delete();
-                $mailer->send('newsletter_template', ['content' => $subscriber->content, 'name'=>$subscriber->from_name], function($message) {
+                $mailer->send('newsletter_template', ['content' => $subscriber->content, 'name' => $subscriber->from_name], function ($message) {
 
                     $message->from($this->from_email, $this->from_name);
                     $message->to($this->to_email, $this->to_name);
@@ -150,7 +152,7 @@ class HomeController extends Controller
                 });
                 $subscriber->delete();
             }
-        }else{
+        } else {
             return response()->json('No Newsletters');
         }
 

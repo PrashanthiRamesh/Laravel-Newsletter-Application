@@ -7,6 +7,7 @@ use App\User;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
@@ -55,9 +56,20 @@ class UserController extends Controller
             //if all ok, then create a db in the specified username & migrate
             User::create($tenant);
             DB::statement('create database ' . Input::get('username'));
+            Config::set('database.connections.mysql_tenant.database', Input::get('username'));
+            Config::set('database.default', 'mysql_tenant');
+            DB::reconnect('mysql_tenant');
             Artisan::call('migrate', [
                 '--path' => "database/migrations/tenant"
             ]);
+            $details=array(
+                'name'=> Input::get('name'),
+                'email' => Input::get('email'),
+                'password'=> Hash::make(Input::get('password')),
+                'username' => Input::get('username'),
+            );
+
+            User::create($details);
             return Redirect::to('/register')->with('message', 'New User Registered and Database Created');
 
         }

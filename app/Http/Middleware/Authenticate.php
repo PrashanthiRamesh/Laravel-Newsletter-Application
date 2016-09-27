@@ -22,13 +22,11 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-
-//        if(!Auth::check()){
-//            return Redirect::to('login');
-//        }else{
-//
-//            return $next($request);
-//        }
+        if(\DB::connection()->getDatabaseName())
+        {
+            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+        }
+        dd(Auth::check());
 
         $pieces = explode('.', $request->getHost());
 
@@ -50,7 +48,19 @@ class Authenticate
                 ]);
 
             }
+            Config::set('database.default', 'mysql');
+            DB::reconnect();
 
+
+            if(!Auth::check()){
+                dd('no');
+            }else{
+
+                dd(Auth::user()->id);
+            }
+            Config::set('database.connections.mysql_tenant.database', $user->username);
+            Config::set('database.default', 'mysql_tenant');
+            DB::reconnect('mysql_tenant');
         }
 
         return $next($request);

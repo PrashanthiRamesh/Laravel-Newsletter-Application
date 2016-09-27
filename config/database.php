@@ -66,11 +66,11 @@ return [
 
         'mysql_tenant' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => '3306',
-            'database' => '',
-            'username' =>  env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host'      => env('DB_HOST', 'localhost'),
+            'port'	    => env('DB_PORT', '3306'),
+            'database'  => '',
+            'username'  => env('DB_USERNAME', 'forge'),
+            'password'  => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

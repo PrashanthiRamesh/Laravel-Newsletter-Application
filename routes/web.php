@@ -14,14 +14,6 @@
  * test
  */
 
-Route::get('test', function () {
-//        if(\DB::connection()->getDatabaseName())
-//        {
-//            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
-//        }
-//    dd($subdomain);
-    die(header('Location: http://prash4.localhost:8000/'));
-});
 
 Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], function () {
 
@@ -30,8 +22,10 @@ Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], funct
      * Home Page
      */
 
-    Route::get('/', 'HomeController@get');
-
+    Route::get('/', [
+        'uses' => 'HomeController@get',
+        'as' => 'sub'
+    ]);
     /*
      * Settings
      */
@@ -164,24 +158,11 @@ Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], funct
         'as' => 'list_delete'
     ]);
 
-//test
-
-    //Route::get('test', 'TestController@index');
 
 
 });
 
 
-/*
- * Authentication
- */
-
-
-Route::get('login', array('uses' => 'HomeController@showLogin'));
-
-Route::post('login', array('uses' => 'HomeController@doLogin'));
-
-Route::get('logout', array('uses' => 'HomeController@doLogout'));
 
 /*
  *  Fetch from queue and send mail
@@ -219,5 +200,26 @@ Route::group(['middleware' => 'main'],function (){
     });
 
     Route::post('register', 'UserController@register');
+
+    Route::get('subdomain', function (){
+        $user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $user = \App\User::where('id', $user_id)->first();
+        $username = $user->username;
+         return redirect()->route('sub', ['subdomain' => $username]);
+    });
+
+
+    /*
+     * Authentication
+     */
+
+
+    Route::get('login', array('uses' => 'HomeController@showLogin'));
+
+    Route::post('login', array('uses' => 'HomeController@doLogin'));
+
+    Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
+
 
 });

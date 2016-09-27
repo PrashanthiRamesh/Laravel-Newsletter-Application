@@ -224,7 +224,7 @@
 
 
                     @section ('pane1_panel_body')
-                     
+                        {!! csrf_field() !!}
 
                             <div class="list-group">
                                 <a href="/subscribers" class="list-group-item">
