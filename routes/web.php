@@ -16,8 +16,8 @@
 Route::get('test', function (){
     \Config::set('database.default', 'mysql');
     \DB::reconnect();
-    $user=\App\User::where('id','2')->get();
-    dd($user);
+    $user=\App\User::where('id','2')->first();
+
     $info=array(
         'username'=>$user->username,
         'name'=>$user->name,
