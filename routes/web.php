@@ -15,7 +15,7 @@
  */
 
 
-Route::group(['domain'=>'{subdomain}.localhost','middleware' => ['auth']], function () {
+Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbeanstalk.com','middleware' => ['auth']], function () {
 
 
     /*
