@@ -19,13 +19,12 @@ Route::get('test', function (){
     \DB::reconnect('mysql_tenant');
 
 
-    if(!\Schema::hasTable('migrations')) {
-        \Artisan::call('migrate:install');
+
         \Artisan::call('migrate', [
             '--path' => "database/migrations/tenant"
         ]);
 
-    }
+
 
     dd('yay');
 });

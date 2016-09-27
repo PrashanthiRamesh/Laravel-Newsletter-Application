@@ -22,11 +22,8 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if(\DB::connection()->getDatabaseName())
-        {
-            echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
-        }
-        dd(Auth::check());
+
+
 
         $pieces = explode('.', $request->getHost());
 
@@ -50,7 +47,10 @@ class Authenticate
             }
             Config::set('database.default', 'mysql');
             DB::reconnect();
-
+            if(\DB::connection()->getDatabaseName())
+            {
+                echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+            }
 
             if(!Auth::check()){
                 dd('no');
