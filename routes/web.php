@@ -14,7 +14,7 @@
  * test
  */
 Route::get('test', function (){
-    \Confi::set('database.connections.mysql_tenant.database', 'sansa4');
+    \Config::set('database.connections.mysql_tenant.database', 'sansa4');
     \Config::set('database.default', 'mysql_tenant');
     \DB::reconnect('mysql_tenant');
 
