@@ -25,7 +25,7 @@ class Authenticate
         DB::reconnect();
 
         if (!Auth::check()) {
-            return Redirect::to('register');
+            return Redirect::to('login');
         }else{
             $user_id=Auth::user()->id;
             $user= User::where('id', $user_id)->first();
