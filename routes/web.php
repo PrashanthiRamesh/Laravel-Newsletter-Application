@@ -50,12 +50,12 @@ Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbea
 
     Route::get('/subscriber/edit/{id}', [
         'uses' => 'SubscribersController@edit_show',
-        'as' => 'subscriber_edit_get'
+        'as' => 'subscriber_edit'
     ]);
 
     Route::post('/subscriber/edit/{id}', [
         'uses' => 'SubscribersController@edit',
-        'as' => 'subscriber_edit'
+        'as' => 'subscriber_edit_post'
     ]);
 
     Route::get('subscriber/delete/{id}', [
