@@ -43,7 +43,8 @@ class Authenticate
                 ]);
 
             }
-            dd(Auth::check());
+            Config::set('database.default', 'mysql');
+            DB::reconnect();
             Config::set('database.connections.mysql_tenant.database', $user->username);
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');

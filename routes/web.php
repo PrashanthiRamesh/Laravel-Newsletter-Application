@@ -14,15 +14,21 @@
  * test
  */
 Route::get('test', function (){
+    \Config::set('database.default', 'mysql');
+    \DB::reconnect();
+    $user=\App\User::where('id','2');
+    $info=array(
+        'username'=>$user->username,
+        'name'=>$user->name,
+        'email'=>$user->email,
+        'password'=>$user->password
+    );
     \Config::set('database.connections.mysql_tenant.database', 'sansa4');
     \Config::set('database.default', 'mysql_tenant');
     \DB::reconnect('mysql_tenant');
+    \App\User::create($info);
 
 
-
-        \Artisan::call('migrate', [
-            '--path' => "database/migrations/tenant"
-        ]);
 
 
 
