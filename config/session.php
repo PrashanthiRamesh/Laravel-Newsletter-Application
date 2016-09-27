@@ -148,7 +148,7 @@ return [
     |
     */
 
-    'domain' => '.localhost',
+    'domain' => '.newsletters.imm9ntup5j.us-east-1.elasticbeanstalk.com',
 
     /*
     |--------------------------------------------------------------------------
