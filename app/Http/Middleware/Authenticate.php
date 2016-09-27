@@ -21,6 +21,7 @@ class Authenticate
     public function handle($request, Closure $next)
     {
 
+
         Config::set('database.default', 'mysql');
         DB::reconnect();
 
