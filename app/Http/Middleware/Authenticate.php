@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -17,37 +16,24 @@ class Authenticate
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param  string|null $guard
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
+//
+//        $pieces = explode('.', $request->getHost());
+//        $user = User::where('username', '=', $pieces[0])->first();
+        Config::set('database.default', 'mysql');
+        DB::reconnect();
 
-
-
-        $pieces = explode('.', $request->getHost());
-
-        $user = User::where('username', '=', $pieces[0])->first();
-
-        if ($user === null) {
+        if (!Auth::check()) {
             return Redirect::to('register');
         }else{
-
+            $user_id=Auth::user()->id;
+            $user= User::where('id', $user_id)->first();
             Config::set('database.connections.mysql_tenant.database', $user->username);
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
-            if(!\Schema::hasTable('migrations')) {
-                Artisan::call('migrate:install');
-                Artisan::call('migrate', [
-                    '--path' => "database/migrations/tenant"
-                ]);
-
-            }
-            dd(Auth::check());
-            Config::set('database.connections.mysql_tenant.database', $user->username);
-            Config::set('database.default', 'mysql_tenant');
-            DB::reconnect('mysql_tenant');
-
         }
 
         return $next($request);
