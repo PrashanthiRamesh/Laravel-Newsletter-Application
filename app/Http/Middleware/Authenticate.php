@@ -56,11 +56,16 @@ class Authenticate
                 dd('no');
             }else{
 
-                dd(Auth::user()->id);
+                echo Auth::user()->id;
             }
             Config::set('database.connections.mysql_tenant.database', $user->username);
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
+
+            if(\DB::connection()->getDatabaseName())
+            {
+                echo "Connected sucessfully to database ".\DB::connection()->getDatabaseName().".";
+            }
         }
 
         return $next($request);
