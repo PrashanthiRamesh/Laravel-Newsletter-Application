@@ -13,7 +13,22 @@
 /*
  * test
  */
+Route::get('test', function (){
+    \Confi::set('database.connections.mysql_tenant.database', 'sansa4');
+    \Config::set('database.default', 'mysql_tenant');
+    \DB::reconnect('mysql_tenant');
 
+
+    if(!\Schema::hasTable('migrations')) {
+        \Artisan::call('migrate:install');
+        \Artisan::call('migrate', [
+            '--path' => "database/migrations/tenant"
+        ]);
+
+    }
+
+    dd('yay');
+});
 
 Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbeanstalk.com','middleware' => ['auth']], function () {
 
