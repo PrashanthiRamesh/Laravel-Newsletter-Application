@@ -78,7 +78,6 @@ class HomeController extends Controller
                 $user_id = Auth::user()->id;
                 $user = User::where('id', $user_id)->first();
                 $username = $user->username;
-                dd($username);
                 return redirect()->route('sub', ['subdomain' => $username]);
             } else {
 
