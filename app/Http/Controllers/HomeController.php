@@ -91,13 +91,11 @@ class HomeController extends Controller
 
     public function doLogout()
     {
-
-
         Auth::logout(); // log the user out of our application
         Session::flush();
         $rememberMeCookie = Auth::getRecallerName();
         $cookie = Cookie::forget($rememberMeCookie);
-        return Redirect::to('home')->withCookie($cookie);// redirect the user to the login screen
+        return Redirect::to('login')->withCookie($cookie);// redirect the user to the login screen
 
     }
 

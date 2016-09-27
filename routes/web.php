@@ -10,31 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-/*
- * test
- */
-Route::get('test', function (){
-    \Config::set('database.default', 'mysql');
-    \DB::reconnect();
-    $user=\App\User::where('id','2')->first();
 
-    $info=array(
-        'username'=>$user->username,
-        'name'=>$user->name,
-        'email'=>$user->email,
-        'password'=>$user->password
-    );
-    \Config::set('database.connections.mysql_tenant.database', 'sansa4');
-    \Config::set('database.default', 'mysql_tenant');
-    \DB::reconnect('mysql_tenant');
-    \App\User::create($info);
-
-
-
-
-
-    dd('yay');
-});
 
 Route::group(['domain'=>'{subdomain}.newsletters.imm9ntup5j.us-east-1.elasticbeanstalk.com','middleware' => ['auth']], function () {
 

@@ -20,9 +20,7 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-//
-//        $pieces = explode('.', $request->getHost());
-//        $user = User::where('username', '=', $pieces[0])->first();
+
         Config::set('database.default', 'mysql');
         DB::reconnect();
 
@@ -35,7 +33,6 @@ class Authenticate
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
         }
-
         return $next($request);
 
     }

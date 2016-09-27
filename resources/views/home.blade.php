@@ -232,7 +232,7 @@
                                     <span class="pull-right text-muted small"><em>{{ $count['subscribers'] }}</em>
                                     </span>
                                 </a>
-                                <a href="/home" class="list-group-item">
+                                <a href="/" class="list-group-item">
                                     <i class="fa fa-envelope fa-fw"></i> Subscribtions
                                     <span class="pull-right text-muted small"><em>{{ $count['subscribtions'] }}</em>
                                     </span>
