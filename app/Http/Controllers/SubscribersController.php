@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Lists;
 use App\Subscribtions;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Subscribers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -31,8 +34,16 @@ class SubscribersController extends Controller
     public function get()
     {
         $subscribers = DB::table('subscribers')->orderBy('id')->get();
-
-        return View::make('subscribers')->with('subscribers', $subscribers);
+        Config::set('database.default', 'mysql');
+        DB::reconnect();
+        $user_id=Auth::user()->id;
+        $user= User::where('id', $user_id)->first();
+        $username=$user->username;
+        Config::set('database.connections.mysql_tenant.database', $user->username);
+        Config::set('database.default', 'mysql_tenant');
+        DB::reconnect('mysql_tenant');
+        return View::make('subscribers')->with('subscribers', $subscribers)
+            ->with('username',$username);
     }
 
     public function edit_show($id)
