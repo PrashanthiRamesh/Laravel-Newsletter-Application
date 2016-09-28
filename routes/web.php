@@ -55,7 +55,7 @@ Route::group(['domain'=>'{subdomain}.syliuscommerce.com','middleware' => ['auth'
 
     Route::post('/subscriber/edit/{id}', [
         'uses' => 'SubscribersController@edit',
-        'as' => 'subscriber_edit_post'
+        'as' => 'subscriber_edit'
     ]);
 
     Route::get('subscriber/delete/{id}', [

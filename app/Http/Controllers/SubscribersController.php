@@ -31,7 +31,7 @@ class SubscribersController extends Controller
     public function get()
     {
         $subscribers = DB::table('subscribers')->orderBy('id')->get();
-        dd($subscribers);
+
         return View::make('subscribers')->with('subscribers', $subscribers);
     }
 
