@@ -108,7 +108,6 @@
                                 <td> {{ $subscriber->id }}</td>
                                 <td > {{ $subscriber->name }}</td>
                                 <td > {{ $subscriber->email }} </td>
-                                {{ dd($subscriber->id) }}
                                 <td>  <a href="{{ route('subscriber_edit', $subscriber->id) }}"></a></td>
                                 <td>  <a href="{{route('subscriber_delete', $subscriber->id) }} " onclick="return confirm('Are you sure you want to delete this subscriber ?')"></a></td>
 
