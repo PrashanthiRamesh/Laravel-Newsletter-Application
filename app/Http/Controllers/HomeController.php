@@ -96,6 +96,11 @@ class HomeController extends Controller
         Session::flush();
         $rememberMeCookie = Auth::getRecallerName();
         $cookie = Cookie::forget($rememberMeCookie);
+        \Config::set('database.connections.mysql.host', env('DB_HOST'));
+        \Config::set('database.connections.mysql.database', env('DB_DATABASE'));
+        \Config::set('database.connections.mysql.username', env('DB_USERNAME'));
+        \Config::set('database.connections.mysql.password', env('DB_PASSWORD'));
+        \DB::reconnect();
         return Redirect::to('login')->withCookie($cookie);// redirect the user to the login screen
 
     }
