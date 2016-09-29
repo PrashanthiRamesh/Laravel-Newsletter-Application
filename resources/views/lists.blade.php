@@ -96,8 +96,8 @@
                     <td> {{ $list->id }}</td>
                     <td > {{ $list->name }}</td>
                     <td > {{ $list->description }} </td>
-                    <td>  <a href="{!! route('list_edit', ['id'=>$list->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
-                    <td>  <a href="{!! route('list_delete', ['id'=>$list->id]) !!} " onclick="return confirm('Are you sure you want to delete this list ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
+                    <td>  <a href="{!! route('list_edit', ['subdomain' => $username,'id'=>$list->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
+                    <td>  <a href="{!! route('list_delete',  ['subdomain' => $username,'id'=>$list->id]) !!} " onclick="return confirm('Are you sure you want to delete this list ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
 
                 </tr>
             @endforeach
