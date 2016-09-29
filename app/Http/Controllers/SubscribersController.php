@@ -56,7 +56,7 @@ class SubscribersController extends Controller
             ->with('lists', $lists);
     }
 
-    public function delete_show($id)
+    public function delete_show($subdomain, $id)
     {
         $subscriber = Subscribers::find($id);
         $subscriber->delete();
