@@ -23,7 +23,7 @@ class Authenticate
 
         $pieces = explode('.', $request->getHost());
         $username = User::where('username', '=', $pieces[0])->first();
-
+dd($username);
         Config::set('database.default', 'mysql');
         DB::reconnect();
 
