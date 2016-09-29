@@ -2,10 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Schema;
 
@@ -23,7 +26,12 @@ class MainDatabaseConfig
     {
 
         if(Auth::check()){
-            return Redirect::to('/');
+            $user_id=Auth::user()->id;
+            $user= User::where('id', $user_id)->first();
+            Config::set('database.connections.mysql_tenant.database', $user->username);
+            Config::set('database.default', 'mysql_tenant');
+            DB::reconnect('mysql_tenant');
+            return redirect()->route('sub', ['subdomain' => $user->username]);
         }
         \Config::set('database.connections.mysql.host', env('DB_HOST'));
         \Config::set('database.connections.mysql.database', env('DB_DATABASE'));
