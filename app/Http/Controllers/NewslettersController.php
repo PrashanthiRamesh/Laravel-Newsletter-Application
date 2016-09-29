@@ -77,8 +77,18 @@ class NewslettersController extends Controller
     }
 
     public function change_sender(){
+
         $senders=Senders::all();
-        return View::make('sender_change')->with('senders', $senders);
+        Config::set('database.default', 'mysql');
+        DB::reconnect();
+        $user_id=Auth::user()->id;
+        $user= User::where('id', $user_id)->first();
+        $username=$user->username;
+        Config::set('database.connections.mysql_tenant.database', $user->username);
+        Config::set('database.default', 'mysql_tenant');
+        DB::reconnect('mysql_tenant');
+        return View::make('sender_change')->with('senders', $senders)->with('username',$username);
+
     }
 
     public function changesender(){
