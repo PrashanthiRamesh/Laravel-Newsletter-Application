@@ -96,8 +96,8 @@ class HomeController extends Controller
         Session::flush();
         $rememberMeCookie = Auth::getRecallerName();
         $cookie = Cookie::forget($rememberMeCookie);
-       // return Redirect::to('login')->withCookie($cookie);// redirect the user to the login screen
-        return Redirect::to(URL::route('sub').'/login');
+        return Redirect::to('login')->withCookie($cookie);// redirect the user to the login screen
+
     }
 
 
