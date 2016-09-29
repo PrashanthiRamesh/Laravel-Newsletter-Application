@@ -14,9 +14,6 @@
  * test
  */
 
-Route::get('test', function (){
-    dd('hey');
-});
 
 
 Route::group(['domain'=>'{subdomain}.syliuscommerce.com','middleware' => ['auth']], function () {
