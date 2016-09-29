@@ -22,7 +22,7 @@ class MainDatabaseConfig
     {
 
         if(Auth::check()){
-            header("Refresh:0");
+            return Redirect::to('/');
         }
         \Config::set('database.connections.mysql.host', env('DB_HOST'));
         \Config::set('database.connections.mysql.database', env('DB_DATABASE'));
