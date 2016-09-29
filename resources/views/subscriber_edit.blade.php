@@ -2,48 +2,52 @@
 @section('page_heading','Edit Subscriber')
 @section('section')
 
-<style>
-    input{
-        font-size:18px
-    }
-    input[type=text] {
-        width: 80%;
-        margin: 0 30% 0 4%;
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
-    }
+    <style>
+        input {
+            font-size: 18px
+        }
 
-    input[type=text]:focus {
-        width: 150%;
-    }
-    form input[type="submit"] {
-        margin: 0 30% 0 4%;
-        background-color: #ce8483;
-        border: none;
-        color: white;
-        padding: 16px 32px;
-        text-decoration: none;
-        cursor: pointer;
+        input[type=text] {
+            width: 80%;
+            margin: 0 30% 0 4%;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
 
-    }
-    form input[type="submit"]:hover {
-        background-color: #ff6666;
+        input[type=text]:focus {
+            width: 150%;
+        }
 
-    }
-    form label{
-        margin: 0 30% 0 4%;
-        font-size:18px
+        form input[type="submit"] {
+            margin: 0 30% 0 4%;
+            background-color: #ce8483;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            cursor: pointer;
 
-    }
+        }
 
-    form input[type="checkbox"]{
-        margin: 0 0% 0 4%;
-        font-size:18px
-    }
+        form input[type="submit"]:hover {
+            background-color: #ff6666;
 
-    ​
+        }
 
-</style>
+        form label {
+            margin: 0 30% 0 4%;
+            font-size: 18px
+
+        }
+
+        form input[type="checkbox"] {
+            margin: 0 0% 0 4%;
+            font-size: 18px
+        }
+
+        ​
+
+    </style>
     <div class="col-sm-8 text-left">
 
         {{ Form::open(array('url' => '/subscriber/edit/{id}', 'method'=>'post')) }}
@@ -57,18 +61,19 @@
         <br><br>
         {{ Form::label('lists', 'Lists:')}}<br><br>
 
-        @foreach ($lists as $list)
+        @if(!empty($lists))
+            @foreach ($lists as $list)
 
-            @if($subscribtions->where('list_id',$list->id)->all())
+                @if($subscribtions->where('list_id',$list->id)->all())
 
-                {{ Form::checkbox('list[]',$list->id, true) }} &nbsp {{$list->name}}
-            @else
-                {{ Form::checkbox('list[]',$list->id, false) }} &nbsp {{$list->name}}
+                    {{ Form::checkbox('list[]',$list->id, true) }} &nbsp {{$list->name}}
+                @else
+                    {{ Form::checkbox('list[]',$list->id, false) }} &nbsp {{$list->name}}
 
-            @endif
-            <br>
-        @endforeach
-
+                @endif
+                <br>
+            @endforeach
+        @endif
 
         <br><br>
         {{Form::submit('Edit Subscriber')}}
