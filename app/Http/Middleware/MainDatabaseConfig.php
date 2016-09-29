@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class MainDatabaseConfig
@@ -20,6 +21,9 @@ class MainDatabaseConfig
     public function handle($request, Closure $next)
     {
 
+        if(Auth::check()){
+            header("Refresh:0");
+        }
         \Config::set('database.connections.mysql.host', env('DB_HOST'));
         \Config::set('database.connections.mysql.database', env('DB_DATABASE'));
         \Config::set('database.connections.mysql.username', env('DB_USERNAME'));
