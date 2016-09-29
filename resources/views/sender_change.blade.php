@@ -151,9 +151,9 @@
                     <td> {{ $sender->email }}</td>
                     <td> {{ $sender->designation }}</td>
                     <td>
-                        <a href="{!! route('sender_edit', ['id'=>$sender->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a>
+                        <a href="{!! route('sender_edit', ['subdomain'=>$username,'id'=>$sender->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a>
                     </td>
-                    <td><a href="{!! route('sender_delete', ['id'=>$sender->id]) !!} "
+                    <td><a href="{!! route('sender_delete', ['subdomain'=>$username, 'id'=>$sender->id]) !!} "
                            onclick="return confirm('Are you sure you want to delete this sender ?')">{{ HTML::image('img/delete-icon.gif') }}</a>
                     </td>
 

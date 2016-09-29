@@ -133,7 +133,7 @@ class NewslettersController extends Controller
         return Redirect::back()->with('message_delete','Newsletter Deleted');
     }
 
-    public function send($id){
+    public function send($subdomain, $id){
         $lists = Lists::all();
         return View::make('newsletter_send')->with('newsletterid',$id)
             ->with('lists',$lists);
@@ -170,7 +170,7 @@ class NewslettersController extends Controller
 
     }
 
-    public function preview($id){
+    public function preview($subdomain, $id){
         $newsletter = Newsletters::find($id);
         return View::make('preview')->with('content',$newsletter->body)
                                                 ->with('name', 'Tyrion Lannister');
@@ -205,7 +205,7 @@ class NewslettersController extends Controller
         return View::make('newsletter_new');
     }
 
-    public function sender_edit($id){
+    public function sender_edit($subdomain, $id){
         $sender=Senders::find($id);
         return View::make('sender_edit')->with('sender',$sender);
     }
@@ -221,7 +221,7 @@ class NewslettersController extends Controller
     }
 
 
-    public function sender_delete($id){
+    public function sender_delete($subdomain, $id){
         $sender = Senders::find($id);
         $sender->delete();
         return Redirect::back()->with('message_del','Sender Deleted');
