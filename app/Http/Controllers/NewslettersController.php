@@ -9,7 +9,10 @@ use App\Newsletters;
 use App\Senders;
 use App\Subscribers;
 use App\Subscribtions;
+use App\User;
 use Illuminate\Mail\Mailer;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -27,8 +30,17 @@ class NewslettersController extends Controller
 
 
     public function index(){
+
         $newsletters=DB::table('newsletters')->orderBy('id')->get();
-        return View::make('newsletters')->with('newsletters',$newsletters);
+        Config::set('database.default', 'mysql');
+        DB::reconnect();
+        $user_id=Auth::user()->id;
+        $user= User::where('id', $user_id)->first();
+        $username=$user->username;
+        Config::set('database.connections.mysql_tenant.database', $user->username);
+        Config::set('database.default', 'mysql_tenant');
+        DB::reconnect('mysql_tenant');
+        return View::make('newsletters')->with('newsletters',$newsletters)->with('username',$username);
     }
 
     public function add_sender(){
@@ -88,7 +100,7 @@ class NewslettersController extends Controller
 
     }
 
-    public function edit_show($id){
+    public function edit_show($subdomain, $id){
         $newsletter = Newsletters::find($id);
 
         return View::make('newsletter_edit')->with('newsletter', $newsletter);
@@ -104,7 +116,7 @@ class NewslettersController extends Controller
         return Redirect::back()->with('message_edit','Newsletter Edited');
     }
 
-    public function delete($id){
+    public function delete($subdomain, $id){
         $newsletter = Newsletters::find($id);
         $newsletter->delete();
 

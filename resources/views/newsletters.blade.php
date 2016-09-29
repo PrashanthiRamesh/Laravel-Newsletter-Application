@@ -95,10 +95,10 @@
 
                     <td> {{ $newsletter->id }}</td>
                     <td > {{ $newsletter->subject }}</td>
-                    <td>  <a href="{!! route('newsletter_send', ['id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to send this newsletter ?')">{{ HTML::image('img/mail-send.png') }}</a></td>
-                    <td>  <a href="{!! route('newsletter_preview', ['id'=>$newsletter->id]) !!} ">{{ HTML::image('img/preview.png') }}</a></td>
-                    <td>  <a href="{!! route('newsletter_edit', ['id'=>$newsletter->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
-                    <td>  <a href="{!! route('newsletter_delete', ['id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to delete this newsletter ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_send', ['subdomain'=>$username, 'id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to send this newsletter ?')">{{ HTML::image('img/mail-send.png') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_preview', ['subdomain'=>$username, 'id'=>$newsletter->id]) !!} ">{{ HTML::image('img/preview.png') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_edit', ['subdomain'=>$username, 'id'=>$newsletter->id]) !!}">{{ HTML::image('img/Icon_edit.gif') }}</a></td>
+                    <td>  <a href="{!! route('newsletter_delete', ['subdomain'=>$username, 'id'=>$newsletter->id]) !!} " onclick="return confirm('Are you sure you want to delete this newsletter ?')">{{ HTML::image('img/delete-icon.gif') }}</a></td>
 
                 </tr>
             @endforeach

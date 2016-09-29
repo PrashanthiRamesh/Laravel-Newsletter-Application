@@ -35,7 +35,7 @@ class ListsController extends Controller
        Config::set('database.connections.mysql_tenant.database', $user->username);
        Config::set('database.default', 'mysql_tenant');
        DB::reconnect('mysql_tenant');
-       return View::make('lists')->with('lists',$lists)->with('username',$username);;
+       return View::make('lists')->with('lists',$lists)->with('username',$username);
    }
 
    public function create()
