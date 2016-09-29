@@ -51,7 +51,7 @@ class ListsController extends Controller
        return View::make('list_new');
    }
 
-    public function edit_show($id)
+    public function edit_show($subdomain, $id)
     {
         $list = Lists::find($id);
 
@@ -69,7 +69,7 @@ class ListsController extends Controller
        return Redirect::back()->with('message','List Edited');
    }
 
-   public function delete_show($id){
+   public function delete_show($subdomain, $id){
        $list = Lists::find($id);
        $list->delete();
        Subscribtions::where('list_id', $id)->delete();
