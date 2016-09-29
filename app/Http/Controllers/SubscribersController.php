@@ -46,10 +46,9 @@ class SubscribersController extends Controller
             ->with('username',$username);
     }
 
-    public function edit_show($id)
+    public function edit_show($subdomain, $id)
     {
         $subscriber = Subscribers::find($id);
-        dd($id);
         $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
         $lists = Lists::all();
         return View::make('subscriber_edit')->with('subscriber', $subscriber)
