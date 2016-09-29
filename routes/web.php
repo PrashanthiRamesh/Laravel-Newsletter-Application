@@ -219,8 +219,10 @@ Route::group(['middleware' => 'main'],function (){
 
     Route::post('login', array('uses' => 'HomeController@doLogin'));
 
-    Route::get('logout', array('uses' => 'HomeController@doLogout'));
+
 
 
 
 });
+
+Route::get('logout', array('uses' => 'HomeController@doLogout'));
