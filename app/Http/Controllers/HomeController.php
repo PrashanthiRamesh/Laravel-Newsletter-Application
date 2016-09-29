@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 
@@ -95,8 +96,8 @@ class HomeController extends Controller
         Session::flush();
         $rememberMeCookie = Auth::getRecallerName();
         $cookie = Cookie::forget($rememberMeCookie);
-        return Redirect::to('login')->withCookie($cookie);// redirect the user to the login screen
-
+       // return Redirect::to('login')->withCookie($cookie);// redirect the user to the login screen
+        return Redirect::to(URL::route('sub').'/login');
     }
 
 
