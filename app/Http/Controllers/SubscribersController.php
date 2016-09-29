@@ -49,7 +49,7 @@ class SubscribersController extends Controller
     public function edit_show($id)
     {
         $subscriber = Subscribers::find($id);
-        dd($subscriber);
+        dd($id);
         $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
         $lists = Lists::all();
         return View::make('subscriber_edit')->with('subscriber', $subscriber)
