@@ -50,6 +50,7 @@ class SubscribersController extends Controller
     {
         $subscriber = Subscribers::find($id);
         $subscribtions = Subscribtions::where('subscribers_id', $id)->get();
+        dd($subscribtions);
         $lists = Lists::all();
         return View::make('subscriber_edit')->with('subscriber', $subscriber)
             ->with('subscribtions', $subscribtions)
