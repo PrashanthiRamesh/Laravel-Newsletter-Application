@@ -22,16 +22,17 @@ class Authenticate
     {
 
         $pieces = explode('.', $request->getHost());
-        $username = User::where('username', '=', $pieces[0])->first();
         Config::set('database.default', 'mysql');
         DB::reconnect();
-dd($username);
+
         if (!Auth::check()  ) {
             return Redirect::to('login');
         }else{
             $user_id=Auth::user()->id;
             $user= User::where('id', $user_id)->first();
-
+            if($pieces[0]!=$user->username){
+                return Redirect::to('login');
+            }
             Config::set('database.connections.mysql_tenant.database', $user->username);
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
