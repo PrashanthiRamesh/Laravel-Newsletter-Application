@@ -4,13 +4,10 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Schema;
 
 class MainDatabaseConfig
 {
@@ -39,13 +36,7 @@ class MainDatabaseConfig
         \Config::set('database.connections.mysql.password', env('DB_PASSWORD'));
         \DB::reconnect();
 
-        if(!\Schema::hasTable('migrations')) {
-            Artisan::call('migrate:install');
-            Artisan::call('migrate', [
-                '--path' => "database/migrations/main"
-            ]);
 
-        }
         return $next($request);
     }
 }

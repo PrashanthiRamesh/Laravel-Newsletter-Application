@@ -55,14 +55,20 @@ class UserController extends Controller
 
             //if all ok, then create a db in the specified username & migrate
             User::create($tenant);
+            DB::statement('CREATE USER '.Input::get('username').'@'.env('DB_HOST').' IDENTIFIED BY '.Input::get('password'));
             DB::statement('create database ' . Input::get('username'));
+            DB::statement('GRANT ALL ON '.Input::get('username').'* TO '.Input::get('username').'@'.env('DB_HOST'));
             Config::set('database.connections.mysql_tenant.database', Input::get('username'));
             Config::set('database.default', 'mysql_tenant');
             DB::reconnect('mysql_tenant');
-            Artisan::call('migrate', [
-                '--path' => "database/migrations/tenant"
-            ]);
-            $details=array(
+//            if(!\Schema::hasTable('migrations')) {
+//                Artisan::call('migrate:install');
+//                Artisan::call('migrate', [
+//                    '--path' => "database/migrations/main"
+//                ]);
+//
+//            }
+           $details=array(
                 'name'=> Input::get('name'),
                 'email' => Input::get('email'),
                 'password'=> Hash::make(Input::get('password')),
